@@ -25,9 +25,7 @@ namespace FinalProject
             }
         }
 
-        // add item to inventory
-
-        public void AddToInventory(int id, string name, double price, double cost, int inStock, int soldLastMonth)
+        public void AddToInventory(int id, string name, double price, double cost, int inStock, int soldLastMonth) // add item to inventory
         {
 
             // create new product object
