@@ -24,5 +24,55 @@ namespace FinalProject
                 Console.WriteLine("---------------------------------------------------------------------------------------------");
             }
         }
+
+        // add item to inventory
+
+        public void AddToInventory(int id, string name, double price, double cost, int inStock, int soldLastMonth)
+        {
+
+            // create new product object
+            Product product = new()
+            {
+                Id = id,
+                Name = name,
+                Price = price,
+                Cost = cost,
+                InStock = inStock,
+                SoldLastMonth = soldLastMonth
+            };
+
+            // check if item already exists in inventory by comparing item id to existing item ids
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv")) // open file
+
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
+            {
+                var records = csv.GetRecords<Product>().ToList(); // convert to list
+
+                foreach (var record in records)
+                {
+                    if (record.Id == product.Id)
+                    {
+                        Console.WriteLine("Item already exists in inventory.");
+                        return;
+                    }
+                }
+            }
+
+            // add product to inventory
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv", append: true)) // open file
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
+            {
+                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv").Length == 0)
+                {
+                    csv.WriteHeader<Product>();
+                    csv.NextRecord(); // Move to the next line after writing the header
+                }
+
+                csv.NextRecord();// Move to the next line after writing the record
+                csv.WriteRecord(product);
+
+                writer.Flush(); // Ensure the data is written immediately
+            }
+        }
     }
 }
