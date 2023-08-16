@@ -11,7 +11,7 @@ an outline of the project so far:
 comprehensive system to manage a small business:
 
 - Database example is just a local CSV file, operations on the database are through CSVhelper
-:https://joshclose.github.io/CsvHelper/getting-started/
+https://joshclose.github.io/CsvHelper/getting-started/
 
 Inventory Management
 - add products
