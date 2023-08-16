@@ -1,6 +1,6 @@
 ﻿namespace FinalProject
 {
-    public class InvoiceManager
+    public class SalesManager
     {
 
     }
