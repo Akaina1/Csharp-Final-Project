@@ -1,4 +1,4 @@
-OrderId,ProductName,SalePrice,Status
+OrderId,ProductName,SalePrice,OrderStatus
 1001,Product_19001,126.68,Shipped
 1002,Product_19003,5.66,Delayed
 1002,Product_19002,182.47,Delayed

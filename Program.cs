@@ -12,14 +12,17 @@ namespace FinalProject
             // test supplier manager method
             //SupplierManager supplierManager = new();
             // test expense manager method
-            ExpenseManger expenseManger = new();
+            //ExpenseManger expenseManger = new();
+            // test sales manager method
+            SalesManager salesManager = new();
 
             //test add to inventory method - works
             //inventoryManager.AddToInventory(19051, "Apple", 1.99, 0.99, 70, 56);
 
             //inventoryManager.ShowInventory();
             //supplierManager.ShowOrders();
-            expenseManger.ShowExpenses();
+            //expenseManger.ShowExpenses();
+            salesManager.ShowSales();
         }
     }
 }

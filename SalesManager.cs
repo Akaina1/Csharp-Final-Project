@@ -14,14 +14,19 @@ namespace FinalProject
 
                 // print out each record in formatted table to console
 
-                Console.WriteLine($"{"OrderId",-7} {"ProductName",-23} {"SalePrice",-15} {"Status",-15}");
-                Console.WriteLine("--------------------------------------");
-                foreach (var record in records)
+                Console.WriteLine($"{"OrderId",-15} {"ProductName",-23} {"SalePrice",-15} {"Status",-15}");
+                Console.WriteLine("---------------------------------------------------------------");
+                for (int i = 0; i < records.Count; i++)
                 {
-                    // use getters to access private fields in Product class
-                    Console.WriteLine($"{record.OrderId,-5}\t{record.ProductName,-20}\t${record.SalePrice,-10:F2}\t{record.OrderStatus,-20}");
+                    if (i > 0 && records[i].OrderId != records[i - 1].OrderId)
+                    {
+                        Console.WriteLine("---------------------------------------------------------------");
+                    }
+
+                    var record = records[i];
+                    Console.WriteLine($"{record.OrderId,-10}\t{record.ProductName,-20}\t${record.SalePrice,-10:F2}\t{record.OrderStatus,-20}");
                 }
-                Console.WriteLine("--------------------------------------");
+                Console.WriteLine("---------------------------------------------------------------");
             }
         }
     }
