@@ -2,12 +2,14 @@
 {
     public class Order
     {
-        int Id { get; set; }
-        string SupplierName { get; set; }
-        string ProductName { get; set; }
-        double AmountPerUnit { get; set; }
-        int Units { get; set; }
-        double TotalCost { get; set; }
-        enum Status { Shipped, Delayed, Cancelled, Delivered }
+        public int Id { get; set; }
+        public string SupplierName { get; set; }
+        public string ProductName { get; set; }
+        public double AmountPerUnit { get; set; }
+        public int Units { get; set; }
+        public double TotalCost { get; set; }
+        public enum Status { Shipped, Delayed, Cancelled, Delivered }
+        public Status OrderStatus { get; set; }
+
     }
 }
