@@ -66,7 +66,7 @@ namespace FinalProject
                     Console.Clear();
                     ShowSales();
 
-                    Console.WriteLine("Press any key to return to the Expense Manager Menu.");
+                    Console.WriteLine("Press any key to return to the Sales Manager Menu.");
                     Console.ReadKey();
                     Console.Clear();
                     SalesMenu();

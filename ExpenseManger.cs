@@ -25,6 +25,17 @@ namespace FinalProject
             }
         }
 
+        public void AddExpense()
+        {
+
+        }
+
+        public void DeleteExpense()
+        {
+
+        }
+             
+
         public void ExpenseMenu()
         {
             Console.WriteLine("Expense Manager\n");
@@ -51,12 +62,12 @@ namespace FinalProject
                     break;
                 case 2:
                     Console.Clear();
-                    //AddExpense();
+                    AddExpense();
                     ExpenseMenu();
                     break;
                 case 3:
                     Console.Clear();
-                    //DeleteExpense();
+                    DeleteExpense();
                     ExpenseMenu();
                     break;
                 case 4:

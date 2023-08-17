@@ -54,7 +54,7 @@ namespace FinalProject
                 Console.Clear();
                 ShowOrders();
 
-                Console.WriteLine("Press any key to return to the Expense Manager Menu.");
+                Console.WriteLine("Press any key to return to the Supplier Manager Menu.");
                 Console.ReadKey();
                 Console.Clear();
                 SupplierMenu();

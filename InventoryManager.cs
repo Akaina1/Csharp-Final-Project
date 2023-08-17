@@ -115,7 +115,7 @@ namespace FinalProject
                     Console.Clear();
                     ShowInventory();
 
-                    Console.WriteLine("Press any key to return to the Expense Manager Menu.");
+                    Console.WriteLine("Press any key to return to the Inventory Manager Menu.");
                     Console.ReadKey();
                     Console.Clear();
                     InventoryMenu();

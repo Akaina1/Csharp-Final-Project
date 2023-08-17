@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace FinalProject
 {
-    internal class Program
+    internal partial class Program
     {
         static void Main()
         {
@@ -15,6 +15,8 @@ namespace FinalProject
             //ExpenseManger expenseManger = new();
             // test sales manager method
             //SalesManager salesManager = new();
+            // test marketing manager method
+            //MarketingManager MarketingManager = new();
 
             //test add to inventory method - works
             //inventoryManager.AddToInventory(19051, "Apple", 1.99, 0.99, 70, 56);
@@ -23,6 +25,7 @@ namespace FinalProject
             //supplierManager.ShowOrders();
             //expenseManger.ShowExpenses();
             //salesManager.ShowSales();
+            //MarketingManager.ShowCampaigns();
 
             // creating a looping menu system that will allow the user to select which manager they want to use
             // and then which method they want to use
@@ -31,7 +34,7 @@ namespace FinalProject
             ExpenseManger expenseManger = new();
             SupplierManager supplierManager = new();
             InventoryManager inventoryManager = new();
-
+            MarketingManager marketingManager = new();
 
 
             bool exit = false;
@@ -45,7 +48,8 @@ namespace FinalProject
                 Console.WriteLine("[2.]  Supplier Manager");
                 Console.WriteLine("[3.]  Expense Manager");
                 Console.WriteLine("[4.]  Sales Manager");
-                Console.WriteLine("[5.]  Exit");
+                Console.WriteLine("[5.]  Marketing Manager");
+                Console.WriteLine("[6.]  Exit");
                 Console.WriteLine("--------------------------------------------------");
                 Console.Write("Enter choice: ");
 
@@ -76,10 +80,15 @@ namespace FinalProject
                     salesManager.SalesMenu();
                     break;
                 case 5:
+                    // go to Marketing manager menu
+                    Console.Clear();
+                    marketingManager.MarketingMenu();
+                    break;
+                case 6:
                     // exit program
                     Console.Clear();
                     Console.WriteLine("Exiting program...");
-                    exit = true; 
+                    exit = true;
                     break;
                 default:
                     // invalid choice, return to main menu
