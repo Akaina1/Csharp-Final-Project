@@ -12,21 +12,28 @@ namespace FinalProject
             {
                 var records = csv.GetRecords<SalesOrder>().ToList(); // convert to list
 
-                // print out each record in formatted table to console
+                // group records based on OrderId
+                // use LINQ to group records by OrderId
+                var groupedRecords = records.GroupBy(r => r.OrderId);
 
-                Console.WriteLine($"{"OrderId",-15} {"ProductName",-23} {"SalePrice",-15} {"Status",-15}");
+                // print out each record in formatted table to console
+                Console.WriteLine($"{"OrderId",-23} {"ProductName",-15} {"SalePrice",-15} {"Status",-15}");
                 Console.WriteLine("---------------------------------------------------------------");
-                for (int i = 0; i < records.Count; i++)
+                foreach (var group in groupedRecords)
                 {
-                    if (i > 0 && records[i].OrderId != records[i - 1].OrderId)
+                    double totalCost = 0;
+                    Console.WriteLine($"Id: {group.Key, -45}\t{group.First().OrderStatus}"); //group.First() is the first record in the group
+
+                    foreach (var record in group)
                     {
-                        Console.WriteLine("---------------------------------------------------------------");
+                        totalCost += record.SalePrice;
+                        Console.WriteLine($"\t\t\t{record.ProductName,-15}\t${record.SalePrice:F2}");
+
                     }
 
-                    var record = records[i];
-                    Console.WriteLine($"{record.OrderId,-10}\t{record.ProductName,-20}\t${record.SalePrice,-10:F2}\t{record.OrderStatus,-20}");
+                    Console.WriteLine($"\n\nTotal Cost:\t${totalCost,-10:F2}");
+                    Console.WriteLine("---------------------------------------------------------------");
                 }
-                Console.WriteLine("---------------------------------------------------------------");
             }
         }
     }
