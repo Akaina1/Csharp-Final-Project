@@ -25,8 +25,26 @@ namespace FinalProject
             }
         }
 
-        public void AddToInventory(int id, string name, double price, double cost, int inStock, int soldLastMonth) // add item to inventory
+        public void AddToInventory() // add item to inventory
         {
+            //get user input for new product
+            Console.WriteLine("Enter the product id: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("\nEnter the product name: ");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("\nEnter the product price: ");
+            double price = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("\nEnter the product cost: ");
+            double cost = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("\nEnter the product quantity in stock: ");
+            int inStock = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("\nEnter the product quantity sold last month: ");
+            int soldLastMonth = Convert.ToInt32(Console.ReadLine());
 
             // create new product object
             Product product = new()
@@ -70,6 +88,55 @@ namespace FinalProject
                 csv.WriteRecord(product);
 
                 writer.Flush(); // Ensure the data is written immediately
+            }
+        }
+
+        public void DeleteInventoryItem()
+        {
+
+        }
+
+        public void InventoryMenu()
+        {
+            Console.WriteLine("Inventory Manager\n");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("[1.]  Show Inventory");
+            Console.WriteLine("[2.]  Add Inventory Item");
+            Console.WriteLine("[3.]  Delete Inventory Item");
+            Console.WriteLine("[4.]  Return to Main Menu");
+            Console.WriteLine("--------------------------------------------------");
+
+            Console.Write("Enter choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Console.Clear();
+                    ShowInventory();
+
+                    Console.WriteLine("Press any key to return to the Expense Manager Menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    InventoryMenu();
+                    break;
+                case 2:
+                    Console.Clear();
+                    AddToInventory();
+                    InventoryMenu();
+                    break;
+                case 3:
+                    Console.Clear();
+                    //DeleteInventoryItem();
+                    InventoryMenu();
+                    break;
+                case 4:
+                    Console.Clear();
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    InventoryMenu();
+                    break;
             }
         }
     }

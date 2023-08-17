@@ -27,10 +27,13 @@ namespace FinalProject
 
         public void ExpenseMenu()
         {
-            Console.WriteLine("1. Show Expenses");
-            Console.WriteLine("2. Add Expense");
-            Console.WriteLine("3. Delete Expense");
-            Console.WriteLine("4. Return to Main Menu");
+            Console.WriteLine("Expense Manager\n");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("[1.]  Show Expenses");
+            Console.WriteLine("[2.]  Add Expense");
+            Console.WriteLine("[3.]  Delete Expense");
+            Console.WriteLine("[4.]  Return to Main Menu");
+            Console.WriteLine("--------------------------------------------------");
 
             Console.Write("Enter choice: ");
             int choice = Convert.ToInt32(Console.ReadLine());
@@ -38,18 +41,26 @@ namespace FinalProject
             switch (choice)
             {
                 case 1:
+                    Console.Clear();
                     ShowExpenses();
+
+                    Console.WriteLine("Press any key to return to the Expense Manager Menu.");
+                    Console.ReadKey();
+                    Console.Clear();
                     ExpenseMenu();
                     break;
                 case 2:
+                    Console.Clear();
                     //AddExpense();
                     ExpenseMenu();
                     break;
                 case 3:
+                    Console.Clear();
                     //DeleteExpense();
                     ExpenseMenu();
                     break;
                 case 4:
+                    Console.Clear();
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");

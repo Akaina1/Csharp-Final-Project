@@ -36,5 +36,59 @@ namespace FinalProject
                 }
             }
         }
+
+        public void NewSale()
+        {
+
+        }
+
+        public void DeleteSale()
+        {
+
+        }
+
+        public void SalesMenu()
+        {
+            Console.WriteLine("Sales Manager\n");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("[1.]  Show Sales");
+            Console.WriteLine("[2.]  New Sale Entry");
+            Console.WriteLine("[3.]  Delete Sale Entry");
+            Console.WriteLine("[4.]  Return to Main Menu");
+            Console.WriteLine("--------------------------------------------------");
+
+            Console.Write("Enter choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Console.Clear();
+                    ShowSales();
+
+                    Console.WriteLine("Press any key to return to the Expense Manager Menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    SalesMenu();
+                    break;
+                case 2:
+                    Console.Clear();
+                    NewSale();
+                    SalesMenu();
+                    break;
+                case 3:
+                    Console.Clear();
+                    DeleteSale();
+                    SalesMenu();
+                    break;
+                case 4:
+                    Console.Clear();
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    SalesMenu();
+                    break;
+            }
+        }
     }
 }

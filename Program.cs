@@ -27,54 +27,67 @@ namespace FinalProject
             // creating a looping menu system that will allow the user to select which manager they want to use
             // and then which method they want to use
             // this will be done using a switch statement
+            SalesManager salesManager = new();
+            ExpenseManger expenseManger = new();
+            SupplierManager supplierManager = new();
+            InventoryManager inventoryManager = new();
+
+
+
             bool exit = false;
 
             do
             {
-                Console.WriteLine("Welcome to the Inventory Management System!");
-                Console.WriteLine("Please select which Module you would like to use:");
-                Console.WriteLine("1. Inventory Manager");
-                Console.WriteLine("2. Supplier Manager");
-                Console.WriteLine("3. Expense Manager");
-                Console.WriteLine("4. Sales Manager");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("Welcome to the Inventory Management System!\n");
+                Console.WriteLine("Please select which Module you would like to use.\n");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("[1.]  Inventory Manager");
+                Console.WriteLine("[2.]  Supplier Manager");
+                Console.WriteLine("[3.]  Expense Manager");
+                Console.WriteLine("[4.]  Sales Manager");
+                Console.WriteLine("[5.]  Exit");
+                Console.WriteLine("--------------------------------------------------");
+                Console.Write("Enter choice: ");
+
 
                 int choice = Convert.ToInt32(Console.ReadLine()); // convert user input to int
 
                 // create switch statement
                 switch (choice)
                 {
-                    case 1:
-                        // go to inventory manager menu
-                        InventoryManager inventoryManager = new();
-                        inventoryManager.InventoryMenu();
-                        break;
-                    case 2:
-                        // go to supplier manager menu
-                        SupplierManager supplierManager = new();
-                        supplierManager.SupplierMenu();
-                        break;
-                    case 3:
-                        // go to expense manager menu
-                        ExpenseManger expenseManger = new();
-                        expenseManger.ExpenseMenu();
-                        break;
-                    case 4:
-                        // go to sales manager menu
-                        SalesManager salesManager = new();
-                        salesManager.SalesMenu();
-                        break;
-                    case 5:
-                        // exit program
-                        exit = true; 
-                        break;
-                    default:
-                        // invalid choice, return to main menu
-                        Console.WriteLine("Invalid choice.");
-                        exit = false;
-                        break;
-                } 
-
+                case 1:
+                    // go to inventory manager menu
+                    Console.Clear();
+                    inventoryManager.InventoryMenu();
+                    break;
+                case 2:
+                    // go to supplier manager menu
+                    Console.Clear();
+                    supplierManager.SupplierMenu();
+                    break;
+                case 3:
+                    // go to expense manager menu
+                    Console.Clear();
+                    expenseManger.ExpenseMenu();
+                    break;
+                case 4:
+                    // go to sales manager menu
+                    Console.Clear();
+                    salesManager.SalesMenu();
+                    break;
+                case 5:
+                    // exit program
+                    Console.Clear();
+                    Console.WriteLine("Exiting program...");
+                    exit = true; 
+                    break;
+                default:
+                    // invalid choice, return to main menu
+                    Console.Clear();
+                    Console.WriteLine("Invalid choice.");
+                    exit = false;
+                    break;
+                }
             } while (!exit);
         }
     }

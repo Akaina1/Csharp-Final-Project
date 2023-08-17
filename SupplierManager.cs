@@ -24,5 +24,59 @@ namespace FinalProject
                 Console.WriteLine("------------------------------------------------------------------------------------------------------");
             }
         }
+
+        public void NewSupplier()
+        {
+
+        }
+
+        public void DeleteSupplier()
+        {
+
+        }
+
+        public void SupplierMenu()
+        {
+            Console.WriteLine("Supplier Manager\n");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("[1.]  Show Supplier Orders");
+            Console.WriteLine("[2.]  New Supplier");
+            Console.WriteLine("[3.]  Delete Supplier");
+            Console.WriteLine("[4.]  Return to Main Menu");
+            Console.WriteLine("--------------------------------------------------");
+
+            Console.Write("Enter choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+            case 1:
+                Console.Clear();
+                ShowOrders();
+
+                Console.WriteLine("Press any key to return to the Expense Manager Menu.");
+                Console.ReadKey();
+                Console.Clear();
+                SupplierMenu();
+                break;
+            case 2:
+                Console.Clear();
+                NewSupplier();
+                SupplierMenu();
+                break;
+            case 3:
+                Console.Clear();
+                DeleteSupplier();
+                SupplierMenu();
+                break;
+            case 4:
+                Console.Clear();
+                break;
+            default:
+                Console.WriteLine("Invalid choice.");
+                SupplierMenu();
+                break;
+            }
+        }
     }
 }
