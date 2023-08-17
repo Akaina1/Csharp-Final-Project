@@ -98,6 +98,7 @@ namespace FinalProject
 
         public void InventoryMenu()
         {
+            Program.MenuHeader();
             Console.WriteLine("Inventory Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show Inventory");

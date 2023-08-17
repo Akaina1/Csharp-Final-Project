@@ -1,10 +1,18 @@
 ﻿using CsvHelper;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FinalProject
 {
     internal partial class Program
     {
+        public static void MenuHeader() //create a header for the menu that will display the current users name and admin level followed by the date and time, then a line break
+            {
+                Console.WriteLine($"Current User: {GlobalState.CurrentUser.Name}");
+                Console.WriteLine($"Admin Level: {GlobalState.CurrentUser.adminLevel}");
+                Console.WriteLine($"Date: {DateTime.Now}");
+                Console.WriteLine("--------------------------------------------------");
+            }
         static void Main()
         {
             // test inventory manager method
@@ -31,6 +39,7 @@ namespace FinalProject
             UserManager userManager = new();
             userManager.Login();
 
+
             // creating a looping menu system that will allow the user to select which manager they want to use
             // and then which method they want to use
             // this will be done using a switch statement
@@ -44,6 +53,8 @@ namespace FinalProject
 
             do
             {
+                //print header
+                Program.MenuHeader();
                 Console.WriteLine("Welcome to the Inventory Management System!\n");
                 Console.WriteLine("Please select which Module you would like to use.\n");
                 Console.WriteLine("--------------------------------------------------");

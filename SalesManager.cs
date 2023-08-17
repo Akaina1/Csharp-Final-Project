@@ -49,6 +49,7 @@ namespace FinalProject
 
         public void SalesMenu()
         {
+            Program.MenuHeader();
             Console.WriteLine("Sales Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show Sales");

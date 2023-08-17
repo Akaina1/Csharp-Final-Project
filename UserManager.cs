@@ -23,6 +23,9 @@ namespace FinalProject
             {
                 var records = csv.GetRecords<User>().ToList(); // convert to list
 
+                //set variable for current user to be returned by method
+                User currentUser = new();
+
                 LoginScreen("", "");
                 bool usernameExists = false;
                 string username = "";
@@ -75,15 +78,16 @@ namespace FinalProject
                 LoginScreen(username, password);
 
                 // if username and password match, tell user they are logged in
-                if (usernameExists == true && passwordMatches == true)
-                {
-                    Console.WriteLine("User Confirmed.\n");
-                    Console.WriteLine("You are logged in.\n");
-                    Console.WriteLine("Press any key to go to the Main Menu");
-                    Console.ReadLine();
-                    Console.Clear();
-                    return;
-                }
+                //set current user to user that matches username and password
+                currentUser = records.Find(x => x.Name == username && x.Password == password);
+                    
+                Console.WriteLine("User Confirmed.\n");
+                Console.WriteLine("You are logged in.\n");
+                Console.WriteLine("Press any key to go to the Main Menu");
+                Console.ReadLine();
+                Console.Clear();
+                GlobalState.CurrentUser = currentUser;
+                return;
             }
         }
     }

@@ -38,6 +38,7 @@ namespace FinalProject
 
         public void ExpenseMenu()
         {
+            Program.MenuHeader();
             Console.WriteLine("Expense Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show Expenses");

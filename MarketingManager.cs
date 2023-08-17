@@ -38,6 +38,7 @@ namespace FinalProject
 
         public void MarketingMenu()
         {
+            Program.MenuHeader();
             Console.WriteLine("Marketing Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show Marketing Campaigns");

@@ -37,6 +37,7 @@ namespace FinalProject
 
         public void SupplierMenu()
         {
+            Program.MenuHeader();
             Console.WriteLine("Supplier Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show Supplier Orders");
