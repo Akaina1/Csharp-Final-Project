@@ -94,6 +94,9 @@ namespace FinalProject
                     // invalid choice, return to main menu
                     Console.Clear();
                     Console.WriteLine("Invalid choice.");
+                    Console.WriteLine("Press any key to return to main menu.");
+                    Console.ReadLine();
+                    Console.Clear();
                     exit = false;
                     break;
                 }

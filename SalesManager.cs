@@ -74,18 +74,24 @@ namespace FinalProject
                 case 2:
                     Console.Clear();
                     NewSale();
+                    Console.Clear();
                     SalesMenu();
                     break;
                 case 3:
                     Console.Clear();
                     DeleteSale();
+                    Console.Clear();
                     SalesMenu();
                     break;
                 case 4:
                     Console.Clear();
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("Invalid choice.");
+                    Console.WriteLine("Press any key to return to Sales Manager Menu.");
+                    Console.ReadLine();
+                    Console.Clear();
                     SalesMenu();
                     break;
             }

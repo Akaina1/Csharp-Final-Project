@@ -123,18 +123,24 @@ namespace FinalProject
                 case 2:
                     Console.Clear();
                     AddToInventory();
+                    Console.Clear();
                     InventoryMenu();
                     break;
                 case 3:
                     Console.Clear();
-                    //DeleteInventoryItem();
+                    DeleteInventoryItem();
+                    Console.Clear();
                     InventoryMenu();
                     break;
                 case 4:
                     Console.Clear();
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("Invalid choice.");
+                    Console.WriteLine("Press any key to return to Inventory Manager Menu.");
+                    Console.ReadLine();
+                    Console.Clear();
                     InventoryMenu();
                     break;
             }

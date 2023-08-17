@@ -63,18 +63,24 @@ namespace FinalProject
                 case 2:
                     Console.Clear();
                     NewCampaign();
+                    Console.Clear();
                     MarketingMenu();
                     break;
                 case 3:
                     Console.Clear();
                     DeleteCampaign();
+                    Console.Clear();
                     MarketingMenu();
                     break;
                 case 4:
                     Console.Clear();
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("Invalid choice.");
+                    Console.WriteLine("Press any key to return to Marketing Manager Menu.");
+                    Console.ReadLine();
+                    Console.Clear();
                     MarketingMenu();
                     break;
             }

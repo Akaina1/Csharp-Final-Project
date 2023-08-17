@@ -63,18 +63,24 @@ namespace FinalProject
                 case 2:
                     Console.Clear();
                     AddExpense();
+                    Console.Clear();
                     ExpenseMenu();
                     break;
                 case 3:
                     Console.Clear();
                     DeleteExpense();
+                    Console.Clear();
                     ExpenseMenu();
                     break;
                 case 4:
                     Console.Clear();
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("Invalid choice.");
+                    Console.WriteLine("Press any key to return to Expense Manager Menu.");
+                    Console.ReadLine();
+                    Console.Clear();
                     ExpenseMenu();
                     break;
             }

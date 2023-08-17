@@ -62,18 +62,24 @@ namespace FinalProject
             case 2:
                 Console.Clear();
                 NewSupplier();
+                Console.Clear();
                 SupplierMenu();
                 break;
             case 3:
                 Console.Clear();
                 DeleteSupplier();
+                Console.Clear();
                 SupplierMenu();
                 break;
             case 4:
                 Console.Clear();
                 break;
             default:
+                Console.Clear();
                 Console.WriteLine("Invalid choice.");
+                Console.WriteLine("Press any key to return to Supplier Manager Menu.");
+                Console.ReadLine();
+                Console.Clear();
                 SupplierMenu();
                 break;
             }
