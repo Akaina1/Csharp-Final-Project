@@ -27,6 +27,10 @@ namespace FinalProject
             //salesManager.ShowSales();
             //MarketingManager.ShowCampaigns();
 
+            //create a login method that will allow the user to login to the system
+            UserManager userManager = new();
+            userManager.Login();
+
             // creating a looping menu system that will allow the user to select which manager they want to use
             // and then which method they want to use
             // this will be done using a switch statement
@@ -35,7 +39,6 @@ namespace FinalProject
             SupplierManager supplierManager = new();
             InventoryManager inventoryManager = new();
             MarketingManager marketingManager = new();
-
 
             bool exit = false;
 
