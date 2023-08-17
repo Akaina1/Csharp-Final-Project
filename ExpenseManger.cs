@@ -24,5 +24,38 @@ namespace FinalProject
                 Console.WriteLine("--------------------------------------");
             }
         }
+
+        public void ExpenseMenu()
+        {
+            Console.WriteLine("1. Show Expenses");
+            Console.WriteLine("2. Add Expense");
+            Console.WriteLine("3. Delete Expense");
+            Console.WriteLine("4. Return to Main Menu");
+
+            Console.Write("Enter choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    ShowExpenses();
+                    ExpenseMenu();
+                    break;
+                case 2:
+                    //AddExpense();
+                    ExpenseMenu();
+                    break;
+                case 3:
+                    //DeleteExpense();
+                    ExpenseMenu();
+                    break;
+                case 4:
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    ExpenseMenu();
+                    break;
+            }
+        }
     }
 }
