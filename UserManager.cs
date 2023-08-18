@@ -1,6 +1,8 @@
 ﻿using CsvHelper;
 using System.Globalization;
-
+// passwords are stored as plain text in the CSV file
+// in a real application, passwords would be hashed and salted
+// this is for demonstration purposes only
 namespace FinalProject
 {
     public class UserManager
@@ -31,7 +33,7 @@ namespace FinalProject
                 string username = "";
                 string password = "";
 
-                while (usernameExists == false) 
+                while (usernameExists == false)
                 {
                     // get username from user
                     Console.Write("Enter username: ");
@@ -41,18 +43,18 @@ namespace FinalProject
                     usernameExists = records.Any(x => x.Name == username);
 
                     // if Username exists, break
-                    if (usernameExists == true) {break;}
+                    if (usernameExists == true) { break; }
 
                     // if username doesn't exist, tell user to retype username
                     Console.Clear();
                     Console.WriteLine("Username does not exist. Please try again.");
                     Console.ReadLine();
                     Console.Clear();
-                    LoginScreen("", "");                         
+                    LoginScreen("", "");
                 }
-                
+
                 Console.Clear();
-                LoginScreen(username,"");
+                LoginScreen(username, "");
                 bool passwordMatches = false;
 
                 while (passwordMatches == false)
@@ -62,10 +64,10 @@ namespace FinalProject
                     password = Console.ReadLine();
 
                     // check if password matches username
-                    passwordMatches = records.Any(x => x.Password == password);
+                    passwordMatches = records.Any(x => x.Name == username && x.Password == password);
 
                     //if pasword matches, break
-                    if (passwordMatches == true) { break;}
+                    if (passwordMatches == true) { break; }
 
                     // if password doesn't match, tell user to retype password
                     Console.Clear();
@@ -80,7 +82,7 @@ namespace FinalProject
                 // if username and password match, tell user they are logged in
                 //set current user to user that matches username and password
                 currentUser = records.Find(x => x.Name == username && x.Password == password);
-                    
+
                 Console.WriteLine("User Confirmed.\n");
                 Console.WriteLine("You are logged in.\n");
                 Console.WriteLine("Press any key to go to the Main Menu");
@@ -229,4 +231,5 @@ namespace FinalProject
                     break;
             }
         }
+    }
 }

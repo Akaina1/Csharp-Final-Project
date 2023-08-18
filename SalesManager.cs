@@ -63,38 +63,49 @@ namespace FinalProject
 
             switch (choice)
             {
-                case 1:
+            case 1:
+                Console.Clear();
+                ShowSales();
+                Console.WriteLine("Press any key to return to the Sales Manager Menu.");
+                Console.ReadKey();
+                Console.Clear();
+                SalesMenu();
+                break;
+            case 2:
+                Console.Clear();
+                NewSale();
+                Console.Clear();
+                SalesMenu();
+                break;
+            case 3:
+                if (GlobalState.CurrentUser?.adminLevel != User.AdminLevel.Admin)
+                {
                     Console.Clear();
-                    ShowSales();
-
-                    Console.WriteLine("Press any key to return to the Sales Manager Menu.");
-                    Console.ReadKey();
+                    Console.WriteLine("You do not have access to delete sale entries, please contact an Administrator");
+                    Console.WriteLine("Press any key to return to main menu.");
+                    Console.ReadLine();
                     Console.Clear();
-                    SalesMenu();
-                    break;
-                case 2:
-                    Console.Clear();
-                    NewSale();
-                    Console.Clear();
-                    SalesMenu();
-                    break;
-                case 3:
+                    SalesMenu();   
+                }
+                else
+                {
                     Console.Clear();
                     DeleteSale();
                     Console.Clear();
                     SalesMenu();
-                    break;
-                case 4:
-                    Console.Clear();
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Invalid choice.");
-                    Console.WriteLine("Press any key to return to Sales Manager Menu.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    SalesMenu();
-                    break;
+                }
+                break;
+            case 4:
+                Console.Clear();
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("Invalid choice.");
+                Console.WriteLine("Press any key to return to Sales Manager Menu.");
+                Console.ReadLine();
+                Console.Clear();
+                SalesMenu();
+                break;
             }
         }
     }

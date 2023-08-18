@@ -122,16 +122,38 @@ namespace FinalProject
                     InventoryMenu();
                     break;
                 case 2:
-                    Console.Clear();
-                    AddToInventory();
-                    Console.Clear();
-                    InventoryMenu();
+                    if (GlobalState.CurrentUser.adminLevel != User.AdminLevel.Admin)
+                    {
+                        Console.WriteLine("You do not have permission to add inventory items.");
+                        Console.WriteLine("Press any key to return to the Inventory Manager Menu.");
+                        Console.ReadKey();
+                        Console.Clear();
+                        InventoryMenu();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        AddToInventory();
+                        Console.Clear();
+                        InventoryMenu();
+                    }
                     break;
                 case 3:
-                    Console.Clear();
-                    DeleteInventoryItem();
-                    Console.Clear();
-                    InventoryMenu();
+                    if (GlobalState.CurrentUser.adminLevel != User.AdminLevel.Admin)
+                    {
+                        Console.WriteLine("You do not have permission to delete inventory items.");
+                        Console.WriteLine("Press any key to return to the Inventory Manager Menu.");
+                        Console.ReadKey();
+                        Console.Clear();
+                        InventoryMenu();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        DeleteInventoryItem();
+                        Console.Clear();
+                        InventoryMenu();
+                    }
                     break;
                 case 4:
                     Console.Clear();
