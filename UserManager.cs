@@ -90,5 +90,143 @@ namespace FinalProject
                 return;
             }
         }
-    }
+
+        public void AddUser()
+        {
+            // get input for new user
+            Console.WriteLine("Please enter the following information for the new user.");
+
+            Console.Write("UserId: ");
+            int userId = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Username: ");
+            string username = Console.ReadLine();
+
+            Console.Write("Password: ");
+            string password = Console.ReadLine();
+
+            Console.Write("Admin Level: ");
+            // convert AdminLevel string to enum
+            User.AdminLevel adminLevel = (User.AdminLevel)Enum.Parse(typeof(User.AdminLevel), Console.ReadLine());
+
+            // create new user object
+            User newUser = new()
+            {
+                UserId = userId,
+                Name = username,
+                Password = password,
+                adminLevel = adminLevel
+            };
+
+            // check if user already exists - compare UserId
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
+            {
+                var records = csv.GetRecords<User>().ToList(); // convert to list
+
+                bool userExists = records.Any(x => x.UserId == userId);
+
+                if (userExists == true)
+                {
+                    Console.WriteLine("User already exists. Please try again.");
+                    Console.ReadLine();
+                    Console.Clear();
+                    AddUser();
+                }
+            }
+
+            // add new user to CSV file
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\User.csv", append: true)) // open file
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
+            {
+                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv").Length == 0)
+                {
+                    csv.WriteHeader<User>();
+                    csv.NextRecord(); // Move to the next line after writing the header
+                }
+
+                csv.NextRecord();// Move to the next line after writing the record
+                csv.WriteRecord(newUser);
+
+                writer.Flush(); // Ensure the data is written immediately
+            }
+        }
+
+        public void ShowUsers()
+        {
+            // show all users in CSV file, only show username, id, and AdminLevel
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
+            {
+                var records = csv.GetRecords<User>().ToList(); // convert to list
+
+                Console.WriteLine("All Users\n");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("UserId\tUsername\tAdminLevel");
+                Console.WriteLine("--------------------------------------------------");
+
+                foreach (var user in records)
+                {
+                    Console.WriteLine($"{user.UserId}\t{user.Name}\t\t{user.adminLevel}");
+                }
+
+                Console.WriteLine("--------------------------------------------------");
+            }
+        }
+
+        public void DeleteUser()
+        {
+
+        }
+
+        public void UserMenu()
+        {
+            Program.MenuHeader();
+            Console.WriteLine("User Manager\n");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("[1.]  Show All Users");
+            Console.WriteLine("[2.]  Add User to System");
+            Console.WriteLine("[3.]  Delete User from System");
+            Console.WriteLine("[4.]  Return to Main Menu");
+            Console.WriteLine("--------------------------------------------------");
+
+            Console.Write("Enter choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Console.Clear();
+                    ShowUsers();
+
+                    Console.WriteLine("Press any key to return to the User Manager Menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    UserMenu();
+                    break;
+                case 2:
+                    Console.Clear();
+                    AddUser();
+                    Console.Clear();
+                    UserMenu();
+                    break;
+                case 3:
+                    Console.Clear();
+                    DeleteUser();
+                    Console.Clear();
+                    UserMenu();
+                    break;
+                case 4:
+                    Console.Clear();
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Invalid choice.");
+                    Console.WriteLine("Press any key to return to Inventory Manager Menu.");
+                    Console.ReadLine();
+                    Console.Clear();
+                    UserMenu();
+                    break;
+            }
+        }
 }

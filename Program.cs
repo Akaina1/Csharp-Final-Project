@@ -44,13 +44,26 @@
                     Console.WriteLine("Welcome to the Inventory Management System!\n");
                     Console.WriteLine("Please select which Module you would like to use.\n");
                     Console.WriteLine("--------------------------------------------------");
-                    Console.WriteLine("[1.]  Inventory Manager");
-                    Console.WriteLine("[2.]  Supplier Manager");
-                    Console.WriteLine("[3.]  Expense Manager");
-                    Console.WriteLine("[4.]  Sales Manager");
-                    Console.WriteLine("[5.]  Marketing Manager");
-                    Console.WriteLine("[6.]  Logout");
-                    Console.WriteLine("[7.]  Exit Program");
+                    if (GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Admin || GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Manager || GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Employee)
+                    { 
+                        Console.WriteLine("[1.]  Inventory Manager"); // all employees can use the inventory manager
+                        Console.WriteLine("[2.]  Sales Manager"); // all employees can use the sales manager
+                    }
+
+                    if (GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Admin || GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Manager)
+                    {
+                        Console.WriteLine("[3.]  Supplier Manager"); // only managers and admins can use the supplier manager
+                        
+                    }
+
+                    if (GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Admin)
+                    {
+                        Console.WriteLine("[4.]  User Manager"); // only admins can use the user manager
+                        Console.WriteLine("[5.]  Expense Manager"); // only admins can use the expense manager
+                        Console.WriteLine("[6.]  Marketing Manager"); // only admins can use the marketing manager
+                    }
+                    Console.WriteLine("[7.]  Logout"); // all users can logout
+                    Console.WriteLine("[8.]  Exit Program"); // all users can exit the program
                     Console.WriteLine("--------------------------------------------------");
                     Console.Write("Enter choice: ");
 
@@ -64,27 +77,32 @@
                         Console.Clear();
                         inventoryManager.InventoryMenu();
                         break;
-                    case 2:
-                        // Go to supplier manager menu
-                        Console.Clear();
-                        supplierManager.SupplierMenu();
-                        break;
-                    case 3:
-                        // Go to expense manager menu
-                        Console.Clear();
-                        expenseManger.ExpenseMenu();
-                        break;
-                    case 4:
+                    case 2:                        
                         // Go to sales manager menu
                         Console.Clear();
                         salesManager.SalesMenu();
                         break;
+                    case 3:
+                        // Go to supplier manager menu
+                        Console.Clear();
+                        supplierManager.SupplierMenu();
+                        break;
+                    case 4:
+                        // Go to User manager menu
+                        Console.Clear();
+                        //userManager.UserMenu();
+                        break;
                     case 5:
+                        // Go to expense manager menu
+                        Console.Clear();
+                        expenseManger.ExpenseMenu();
+                        break;
+                    case 6:                        
                         // Go to Marketing manager menu
                         Console.Clear();
                         marketingManager.MarketingMenu();
                         break;
-                    case 6:
+                    case 7:
                         // Logout
                         Console.Clear();
                         Console.WriteLine("Logging you out...");
@@ -93,7 +111,7 @@
                         GlobalState.Logout();
                         exitMenu = true;
                         break;
-                    case 7:
+                    case 8:
                         // Exit program
                         Console.Clear();
                         Console.WriteLine("Exiting program...");
