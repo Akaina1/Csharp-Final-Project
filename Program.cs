@@ -1,6 +1,4 @@
-﻿using System.Net.NetworkInformation;
-
-namespace FinalProject
+﻿namespace FinalProject
 {
     internal partial class Program
     {

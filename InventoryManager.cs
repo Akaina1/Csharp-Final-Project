@@ -93,9 +93,56 @@ namespace FinalProject
 
         public void DeleteInventoryItem()
         {
+            // show the current inventory
+            ShowInventory();
 
+            // get user input for item to delete
+            Console.WriteLine("Enter the id of the item you would like to delete: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            List<Product> records;
+
+            // check if item exists in inventory by comparing item id to existing item ids
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv")) // open file
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
+            {
+                records = csv.GetRecords<Product>().ToList(); // convert to list
+            }
+
+            Product itemToDelete = records.FirstOrDefault(record => record.Id == id);
+
+            if (itemToDelete != null)
+            {
+                // delete item from inventory
+                records.Remove(itemToDelete);
+
+                // write updated inventory to csv file
+                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv", append: false)) // open file
+                using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
+                {
+                    csvWriter.WriteHeader<Product>();
+                    csvWriter.NextRecord(); // Move to the next line after writing the header
+
+                    foreach (var item in records)
+                    {
+                    csvWriter.NextRecord();// Move to the next line after writing the record
+                    csvWriter.WriteRecord(item);
+                    }
+
+                    writer.Flush(); // Ensure the data is written immediately
+                }
+
+                Console.WriteLine("Item deleted.");
+                Console.WriteLine("Press any key to return to the Inventory Manager Menu.");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Item not found.");
+                Console.WriteLine("Press any key to return to the Inventory Manager Menu.");
+                Console.ReadKey();
+            }
         }
-
         public void InventoryMenu()
         {
             Program.MenuHeader();
