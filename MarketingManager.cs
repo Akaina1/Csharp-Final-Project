@@ -1,6 +1,5 @@
 ﻿using CsvHelper;
 using System.Globalization;
-using static FinalProject.Program;
 
 namespace FinalProject
 {

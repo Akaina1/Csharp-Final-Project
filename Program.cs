@@ -1,120 +1,117 @@
-﻿using CsvHelper;
-using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
-
-namespace FinalProject
+﻿namespace FinalProject
 {
     internal partial class Program
     {
-        public static void MenuHeader() //create a header for the menu that will display the current users name and admin level followed by the date and time, then a line break
-            {
-                Console.WriteLine($"Current User: {GlobalState.CurrentUser.Name}");
-                Console.WriteLine($"Admin Level: {GlobalState.CurrentUser.adminLevel}");
-                Console.WriteLine($"Date: {DateTime.Now}");
-                Console.WriteLine("--------------------------------------------------");
-            }
+        public static void MenuHeader() // Create a header for the menu that will display the current users name and admin level followed by the date and time, then a line break
+        {
+            Console.WriteLine($"Current User: {GlobalState.CurrentUser.Name}");
+            Console.WriteLine($"Admin Level: {GlobalState.CurrentUser.adminLevel}");
+            Console.WriteLine($"Date: {DateTime.Now}");
+            Console.WriteLine("--------------------------------------------------");
+        }
         static void Main()
         {
-            // test inventory manager method
-            //InventoryManager inventoryManager = new(); // can just use new() instead of new InventoryManager() to instantiate a new object - C# 9.0 feature
-            // test supplier manager method
-            //SupplierManager supplierManager = new();
-            // test expense manager method
-            //ExpenseManger expenseManger = new();
-            // test sales manager method
-            //SalesManager salesManager = new();
-            // test marketing manager method
-            //MarketingManager MarketingManager = new();
-
-            //test add to inventory method - works
-            //inventoryManager.AddToInventory(19051, "Apple", 1.99, 0.99, 70, 56);
-
-            //inventoryManager.ShowInventory();
-            //supplierManager.ShowOrders();
-            //expenseManger.ShowExpenses();
-            //salesManager.ShowSales();
-            //MarketingManager.ShowCampaigns();
-
-            //create a login method that will allow the user to login to the system
-            UserManager userManager = new();
-            userManager.Login();
-
-
-            // creating a looping menu system that will allow the user to select which manager they want to use
-            // and then which method they want to use
-            // this will be done using a switch statement
+            // Instantiate Manager Objects
             SalesManager salesManager = new();
             ExpenseManger expenseManger = new();
             SupplierManager supplierManager = new();
             InventoryManager inventoryManager = new();
             MarketingManager marketingManager = new();
-
-            bool exit = false;
+            UserManager userManager = new();
+            
+            // Creating a looping menu system that will allow the user to select which manager they want to use
+            bool exitProgram = false;
 
             do
             {
-                //print header
-                Program.MenuHeader();
-                Console.WriteLine("Welcome to the Inventory Management System!\n");
-                Console.WriteLine("Please select which Module you would like to use.\n");
-                Console.WriteLine("--------------------------------------------------");
-                Console.WriteLine("[1.]  Inventory Manager");
-                Console.WriteLine("[2.]  Supplier Manager");
-                Console.WriteLine("[3.]  Expense Manager");
-                Console.WriteLine("[4.]  Sales Manager");
-                Console.WriteLine("[5.]  Marketing Manager");
-                Console.WriteLine("[6.]  Exit");
-                Console.WriteLine("--------------------------------------------------");
-                Console.Write("Enter choice: ");
+                // Allow the user to Login
+                userManager.Login();
 
-
-                int choice = Convert.ToInt32(Console.ReadLine()); // convert user input to int
-
-                // create switch statement
-                switch (choice)
+                if(GlobalState.CurrentUser == null)
                 {
-                case 1:
-                    // go to inventory manager menu
-                    Console.Clear();
-                    inventoryManager.InventoryMenu();
-                    break;
-                case 2:
-                    // go to supplier manager menu
-                    Console.Clear();
-                    supplierManager.SupplierMenu();
-                    break;
-                case 3:
-                    // go to expense manager menu
-                    Console.Clear();
-                    expenseManger.ExpenseMenu();
-                    break;
-                case 4:
-                    // go to sales manager menu
-                    Console.Clear();
-                    salesManager.SalesMenu();
-                    break;
-                case 5:
-                    // go to Marketing manager menu
-                    Console.Clear();
-                    marketingManager.MarketingMenu();
-                    break;
-                case 6:
-                    // exit program
-                    Console.Clear();
-                    Console.WriteLine("Exiting program...");
-                    exit = true;
-                    break;
-                default:
-                    // invalid choice, return to main menu
-                    Console.Clear();
-                    Console.WriteLine("Invalid choice.");
-                    Console.WriteLine("Press any key to return to main menu.");
+                    Console.WriteLine("Failed to Login.");
+                    Console.WriteLine("Press any key to try again.");
                     Console.ReadLine();
                     Console.Clear();
-                    exit = false;
-                    break;
                 }
-            } while (!exit);
+
+                bool exitMenu = false;
+                       
+                do
+                {
+                    // Print header
+                    Program.MenuHeader();
+                    Console.WriteLine("Welcome to the Inventory Management System!\n");
+                    Console.WriteLine("Please select which Module you would like to use.\n");
+                    Console.WriteLine("--------------------------------------------------");
+                    Console.WriteLine("[1.]  Inventory Manager");
+                    Console.WriteLine("[2.]  Supplier Manager");
+                    Console.WriteLine("[3.]  Expense Manager");
+                    Console.WriteLine("[4.]  Sales Manager");
+                    Console.WriteLine("[5.]  Marketing Manager");
+                    Console.WriteLine("[6.]  Logout");
+                    Console.WriteLine("[7.]  Exit Program");
+                    Console.WriteLine("--------------------------------------------------");
+                    Console.Write("Enter choice: ");
+
+                    int choice = Convert.ToInt32(Console.ReadLine()); // Convert user input to int
+
+                    // Create switch statement
+                    switch (choice)
+                    {
+                    case 1:
+                        // Go to inventory manager menu
+                        Console.Clear();
+                        inventoryManager.InventoryMenu();
+                        break;
+                    case 2:
+                        // Go to supplier manager menu
+                        Console.Clear();
+                        supplierManager.SupplierMenu();
+                        break;
+                    case 3:
+                        // Go to expense manager menu
+                        Console.Clear();
+                        expenseManger.ExpenseMenu();
+                        break;
+                    case 4:
+                        // Go to sales manager menu
+                        Console.Clear();
+                        salesManager.SalesMenu();
+                        break;
+                    case 5:
+                        // Go to Marketing manager menu
+                        Console.Clear();
+                        marketingManager.MarketingMenu();
+                        break;
+                    case 6:
+                        // Logout
+                        Console.Clear();
+                        Console.WriteLine("Logging you out...");
+                        Console.Clear();
+                        Console.ReadLine();
+                        GlobalState.Logout();
+                        exitMenu = true;
+                        break;
+                    case 7:
+                        // Exit program
+                        Console.Clear();
+                        Console.WriteLine("Exiting program...");
+                        exitProgram = true;
+                        exitMenu = true;
+                        break;
+                    default:
+                        // Invalid choice, return to main menu
+                        Console.Clear();
+                        Console.WriteLine("Invalid choice.");
+                        Console.WriteLine("Press any key to return to main menu.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        exitProgram = false;
+                        break;
+                    }
+                } while (!exitMenu);
+            } while (!exitProgram);
         }
     }
 }
