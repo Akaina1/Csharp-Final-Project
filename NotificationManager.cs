@@ -37,11 +37,11 @@ namespace FinalProject
 
                 // print out each record in formatted table to console
 
-                Console.WriteLine($"{"Id",-10}{"Description",-39} {"Date",-15} {"Type",-10} {"Module"}");
+                Console.WriteLine($"{"Id"} {"Description",16} {"Date",48} {"Type",15} {"Module",12}");
                 Console.WriteLine("---------------------------------------------------------------------------------------------------");
                 foreach (var record in records)
                 {
-                    Console.WriteLine($"{record.Id}\t{record.Description,10}\t{record.Date,10}\t{record.notificationType,5}\t{record.notificationModule,12}");
+                    Console.WriteLine($"{record.Id}\t{record.Description,-50}\t{record.Date}\t{record.notificationType,5}\t{record.notificationModule,12}");
                 }
                 Console.WriteLine("---------------------------------------------------------------------------------------------------");
             }

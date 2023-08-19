@@ -10,3 +10,5 @@ Id,Description,Date,notificationType,notificationModule
 908,Low Inventory for: Product_19041,08/19/2023,Urgent,Inventory
 909,Low Inventory for: Product_19043,08/19/2023,Urgent,Inventory
 910,Low Inventory for: Product_19049,08/19/2023,Urgent,Inventory
+911,Expense due within 7 days: Building Rent,08/19/2023,Urgent,Expense
+912,Expense due within 7 days: Insurance,08/19/2023,Urgent,Expense

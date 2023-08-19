@@ -73,12 +73,43 @@ namespace FinalProject
             Console.WriteLine("Press any key to return to the Notification Manager Menu.");
             Console.ReadKey();
         }
-
     }
 
     public static class ExpenseCheck
     {
+        public static void CheckExpense()
+        {
+            // check notifications.csv file for any notifications that have already been created
 
+            List<Notification> existingNotifications = new(); // create list of notifications
+
+            // open notifications csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                existingNotifications = csv.GetRecords<Notification>().ToList();
+            }
+
+            //open inventory csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Expenses.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Expense>().ToList(); // convert to list
+
+                // check each record for conditions
+                foreach (var record in records)
+                {
+                    if (record.DueDate >= DateOnly.FromDateTime(DateTime.Today) && record.DueDate <= DateOnly.FromDateTime(DateTime.Today.AddDays(7)))
+                    {
+                        if (!existingNotifications.Any(n => n.Description == $"Expense due within 7 days: {record.Description}"))
+                        {
+                            // create notification
+                            NotificationManager.AutoNotification($"Expense due within 7 days: {record.Description}", Notification.NotificationType.Urgent, Notification.Module.Expense);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static class SalesCheck

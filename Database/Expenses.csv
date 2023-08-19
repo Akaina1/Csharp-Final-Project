@@ -1,32 +1,31 @@
-Id,Description,Amount
-
-201,Building Rent,1200
-202,Supplier Order #6001,266.04
-203,Supplier Order #6002,456.2
-204,Supplier Order #6003,79.2
-205,Supplier Order #6004,511.08
-206,Supplier Order #6005,194.94
-207,Supplier Order #6006,78
-208,Supplier Order #6007,84.6
-209,Supplier Order #6008,85.18
-210,Supplier Order #6009,111.9
-211,Supplier Order #6010,98.7
-212,Supplier Order #6011,117
-213,Supplier Order #6012,84.6
-214,Supplier Order #6013,971.55
-215,Supplier Order #6014,84.6
-216,Supplier Order #6015,84.6
-217,Supplier Order #6016,84.9
-218,Supplier Order #6017,84.9
-219,Supplier Order #6018,107.7
-220,Supplier Order #6019,469.7
-221,Supplier Order #6020,84.6
-222,Supplier Order #6021,114.6
-223,Supplier Order #6022,78
-224,Supplier Order #6023,111.9
-225,Supplier Order #6024,84.6
-226,Supplier Order #6025,84.6
-227,"Building Electricity ",450
-228,Insurance,300
-229,Marketing Budget,250
-230,Employee Salary,1600
+Id,Description,Amount,DueDate
+201,Building Rent,1200,08/24/2023
+202,Supplier Order #6001,266.04,09/19/2023
+203,Supplier Order #6002,456.2,09/19/2023
+204,Supplier Order #6003,79.2,09/19/2023
+205,Supplier Order #6004,511.08,09/19/2023
+206,Supplier Order #6005,194.94,09/19/2023
+207,Supplier Order #6006,78,09/19/2023
+208,Supplier Order #6007,84.6,09/19/2023
+209,Supplier Order #6008,85.18,09/19/2023
+210,Supplier Order #6009,111.9,09/19/2023
+211,Supplier Order #6010,98.7,09/19/2023
+212,Supplier Order #6011,117,09/19/2023
+213,Supplier Order #6012,84.6,09/19/2023
+214,Supplier Order #6013,971.55,09/19/2023
+215,Supplier Order #6014,84.6,09/19/2023
+216,Supplier Order #6015,84.6,09/19/2023
+217,Supplier Order #6016,84.9,09/19/2023
+218,Supplier Order #6017,84.9,09/19/2023
+219,Supplier Order #6018,107.7,09/19/2023
+220,Supplier Order #6019,469.7,09/19/2023
+221,Supplier Order #6020,84.6,09/19/2023
+222,Supplier Order #6021,114.6,09/19/2023
+223,Supplier Order #6022,78,09/19/2023
+224,Supplier Order #6023,111.9,09/19/2023
+225,Supplier Order #6024,84.6,09/19/2023
+226,Supplier Order #6025,84.6,09/19/2023
+227,Building Electricity,450,09/19/2023
+228,Insurance,300,08/24/2023
+229,Marketing Budget,250,09/19/2023
+230,Employee Salary,1600,09/19/2023

@@ -14,14 +14,14 @@ namespace FinalProject
 
                 // print out each record in formatted table to console
 
-                Console.WriteLine($"{"Id",-7} {"Description",-23} {"Amount",-15}");
-                Console.WriteLine("--------------------------------------");
+                Console.WriteLine($"{"Id",-7} {"Description",-23} {"Amount",-15} {"Due Date"}");
+                Console.WriteLine("--------------------------------------------------------");
                 foreach (var record in records)
                 {
                     // use getters to access private fields in Product class
-                    Console.WriteLine($"{record.Id,-5}\t{record.Description,-20}\t${record.Amount,-10:F2}");
+                    Console.WriteLine($"{record.Id,-5}\t{record.Description,-20}\t${record.Amount,-10:F2}\t{record.DueDate}");
                 }
-                Console.WriteLine("--------------------------------------");
+                Console.WriteLine("--------------------------------------------------------");
             }
         }
 
@@ -42,6 +42,10 @@ namespace FinalProject
             Console.WriteLine("\nEnter the expense amount: ");
             // validate amount is a double
             double amount = Convert.ToDouble(Console.ReadLine());
+
+            // get due date
+            Console.WriteLine("\nEnter the expense due date (MM/DD/YYYY): ");
+            DateTime dueDate = Convert.ToDateTime(Console.ReadLine());
 
             //get id of last entry in csv file
             int lastId = 0;
@@ -66,7 +70,8 @@ namespace FinalProject
             {
                 Id = lastId + 1,
                 Description = description,
-                Amount = amount
+                Amount = amount,
+                DueDate = DateOnly.FromDateTime(dueDate)
             };
 
             // add new expense to csv file

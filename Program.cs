@@ -178,7 +178,7 @@
 
             // check database CSV files and update notifications if needed
             InventoryCheck.CheckInventory();
-            //ExpenseCheck.CheckExpenses();
+            ExpenseCheck.CheckExpense();
             //OrderCheck.CheckOrders();
             //MarketingCheck.CheckMarketing();
             //SalesCheck.CheckSales();
