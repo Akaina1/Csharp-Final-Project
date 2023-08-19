@@ -2,7 +2,7 @@
 using System.Globalization;
 
 
-// the DatabaseCheck class is used to check each database CSV file to see if any conditions are met to create Notifications using AutoNotification() method.
+// the DatabaseCheck.cs is used to hold the Checker classes, they check each database CSV file to see if any conditions are met to create Notifications using AutoNotification() method.
 namespace FinalProject
 {
     public static class InventoryCheck
@@ -50,7 +50,30 @@ namespace FinalProject
                     }
                 }
             }
-        }       
+        }
+        public static void SetMinInventory()
+        {
+            Console.WriteLine("Enter minimum inventory level: ");
+            int minInventory = Convert.ToInt32(Console.ReadLine());
+
+            // set InventoryCheck.minInventory to user input
+            MinInventory = minInventory;
+
+            Console.WriteLine("Minimum inventory level set to: " + minInventory);
+        }
+        public static void SetMaxInventory()
+        {
+            Console.WriteLine("Enter maximum inventory level: ");
+            int maxInventory = Convert.ToInt32(Console.ReadLine());
+
+            // set InventoryCheck.maxInventory to user input
+            MaxInventory = maxInventory;
+
+            Console.WriteLine("Maximum inventory level set to: " + maxInventory);
+            Console.WriteLine("Press any key to return to the Notification Manager Menu.");
+            Console.ReadKey();
+        }
+
     }
 
     public static class ExpenseCheck

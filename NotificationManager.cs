@@ -55,7 +55,8 @@ namespace FinalProject
             Console.WriteLine("[1.]  Show all Notifications");
             Console.WriteLine("[2.]  Add Notification");
             Console.WriteLine("[3.]  Delete Notification");
-            Console.WriteLine("[4.]  Return to Main Menu");
+            Console.WriteLine("[4.]  Notification Options");
+            Console.WriteLine("[5.]  Return to Main Menu");
             Console.WriteLine("--------------------------------------------------");
 
             Console.Write("Enter choice: ");
@@ -86,7 +87,56 @@ namespace FinalProject
                     break;
                 case 4:
                     Console.Clear();
+                    OptionsMenu();
                     break;
+                case 5:
+                    Console.Clear();
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Invalid choice.");
+                    Console.WriteLine("Press any key to return to Notification Manager Menu.");
+                    Console.ReadLine();
+                    Console.Clear();
+                    NotificationMenu();
+                    break;
+            }
+        }
+        public void OptionsMenu()
+        {
+            Program.MenuHeader();
+            NotificationHeader();
+            Console.WriteLine("Notification Options\n");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("[1.]  Change minumum inventory limit");
+            Console.WriteLine("[2.]  Change maximum inventory limit");
+            Console.WriteLine("[3.]  Return to Notification Manager");
+            Console.WriteLine("--------------------------------------------------");
+
+            Console.Write("Enter choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Console.Clear();
+                    InventoryCheck.SetMinInventory();
+                    Console.WriteLine("Press any key to return to the Notification Manager Menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    NotificationMenu();
+                    break;
+                case 2:
+                    Console.Clear();
+                    InventoryCheck.SetMaxInventory();
+                    Console.WriteLine("Press any key to return to the Notification Manager Menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    NotificationMenu();
+                    break;
+                case 3:
+                    Console.Clear();
+                    break;                  
                 default:
                     Console.Clear();
                     Console.WriteLine("Invalid choice.");
@@ -139,34 +189,6 @@ namespace FinalProject
 
                 writer.Flush(); // Ensure the data is written immediately
             }
-        }
-        public void SetMinInventory()
-        {
-            int minInventory;
-
-            Console.WriteLine("Enter minimum inventory level: ");
-            minInventory = Convert.ToInt32(Console.ReadLine());
-
-            // set InventoryCheck.minInventory to user input
-            InventoryCheck.MinInventory = minInventory;
-
-            Console.WriteLine("Minimum inventory level set to: " + minInventory);
-            Console.WriteLine("Press any key to return to the Notification Manager Menu.");
-            Console.ReadKey();
-        }
-        public void SetMaxInventory()
-        {
-            int maxInventory;
-
-            Console.WriteLine("Enter maximum inventory level: ");
-            maxInventory = Convert.ToInt32(Console.ReadLine());
-
-            // set InventoryCheck.maxInventory to user input
-            InventoryCheck.MaxInventory = maxInventory;
-
-            Console.WriteLine("Maximum inventory level set to: " + maxInventory);
-            Console.WriteLine("Press any key to return to the Notification Manager Menu.");
-            Console.ReadKey();
         }
     }  
 }
