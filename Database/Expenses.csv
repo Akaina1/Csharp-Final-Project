@@ -1,4 +1,5 @@
 Id,Description,Amount
+
 201,Building Rent,1200
 202,Supplier Order #6001,266.04
 203,Supplier Order #6002,456.2
@@ -25,7 +26,7 @@ Id,Description,Amount
 224,Supplier Order #6023,111.9
 225,Supplier Order #6024,84.6
 226,Supplier Order #6025,84.6
-227,Building Electricity ,450
+227,"Building Electricity ",450
 228,Insurance,300
 229,Marketing Budget,250
 230,Employee Salary,1600

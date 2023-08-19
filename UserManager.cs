@@ -97,10 +97,8 @@ namespace FinalProject
         {
             // get input for new user
             Console.WriteLine("Please enter the following information for the new user.");
-
-            Console.Write("UserId: ");
-            int userId = Convert.ToInt32(Console.ReadLine());
-
+            Console.WriteLine("--------------------------------------------------------");
+                       
             Console.Write("Username: ");
             string username = Console.ReadLine();
 
@@ -111,37 +109,38 @@ namespace FinalProject
             // convert AdminLevel string to enum
             User.AdminLevel adminLevel = (User.AdminLevel)Enum.Parse(typeof(User.AdminLevel), Console.ReadLine());
 
-            // create new user object
-            User newUser = new()
-            {
-                UserId = userId,
-                Name = username,
-                Password = password,
-                adminLevel = adminLevel
-            };
+            // get last userId from csv file
+            int lastId = 0;
 
-            // check if user already exists - compare UserId
             using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<User>().ToList(); // convert to list
 
-                bool userExists = records.Any(x => x.UserId == userId);
-
-                if (userExists == true)
+                if(records.Any())
                 {
-                    Console.WriteLine("User already exists. Please try again.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    AddUser();
+                    lastId = records.Last().UserId;
+                }
+                else
+                {
+                    Console.WriteLine("No users found.");
                 }
             }
 
-            // add new user to CSV file
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\User.csv", append: true)) // open file
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
+            // create new user object
+            User newUser = new()
             {
-                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv").Length == 0)
+                UserId = lastId + 1,
+                Name = username,
+                Password = password,
+                adminLevel = adminLevel
+            };
+
+            // add to CSV file
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv", append: true)) // open file
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // read file
+            {
+                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv").Length == 0)
                 {
                     csv.WriteHeader<User>();
                     csv.NextRecord(); // Move to the next line after writing the header
@@ -178,7 +177,68 @@ namespace FinalProject
 
         public void DeleteUser()
         {
+            // show users
+            ShowUsers();
 
+            // get user id to delete
+            Console.Write("Enter UserId of user to delete: ");
+            int userId = Convert.ToInt32(Console.ReadLine());
+
+            List<User> records;
+
+            // check if user exists
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
+            {
+                records = csv.GetRecords<User>().ToList(); // convert to list
+            }
+
+            User userToDelete = records.FirstOrDefault(x => x.UserId == userId);
+
+            // ask user to confirm deletion by entering their password
+            Console.Write($"Please enter your password to confirm deletion of {userToDelete.Name}: ");
+            string password = Console.ReadLine();
+
+            // check if password matches by comparing global current user password to entered password stored in User CSV file
+            if (password != GlobalState.CurrentUser.Password)
+            {
+                Console.WriteLine("Password does not match. Please try again.");
+                Console.ReadLine();
+                Console.Clear();
+                DeleteUser();
+            }
+
+            if (userToDelete != null)
+            { 
+                //remove user from list
+                records.Remove(userToDelete);
+
+                // write list to CSV file
+                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
+                {
+                    csv.WriteRecords(records);
+
+                    foreach (var user in records)
+                    {
+                        csv.NextRecord();// Move to the next line after writing the record
+                        csv.WriteRecord(user);
+                    }
+
+                    writer.Flush(); // Ensure the data is written immediately
+                }
+
+                Console.WriteLine("User deleted successfully.");
+                Console.WriteLine("Press any key to return to the User Manager Menu.");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("User not found. Please try again.");
+                Console.WriteLine("Press any key to return to the User Manager Menu.");
+                Console.Clear();
+                DeleteUser();
+            }
         }
 
         public void UserMenu()

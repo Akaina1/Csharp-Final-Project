@@ -31,7 +31,7 @@ namespace FinalProject
 
                     }
 
-                    Console.WriteLine($"\n\nTotal Cost:\t${totalCost,-10:F2}");
+                    Console.WriteLine($"\n\nTotal Cost:  ${totalCost,5:F2}");
                     Console.WriteLine("---------------------------------------------------------------");
                 }
             }
@@ -39,14 +39,91 @@ namespace FinalProject
 
         public void NewSale()
         {
+            List<SalesOrder> newOrders = new();
 
-        }
+            // get order id
+            Console.WriteLine("Enter the order id: ");
+            int orderId = Convert.ToInt32(Console.ReadLine());
+
+            while (true)
+            {
+                Console.WriteLine("Enter a product name or type 'stop' to finish: ");
+                string productName = Console.ReadLine();
+
+                if (productName.ToLower() == "stop")
+                    break;
+
+                Console.WriteLine("Enter the sale price for " + productName + ": ");
+                double salePrice = Convert.ToDouble(Console.ReadLine());
+
+                newOrders.Add(new SalesOrder
+                {
+                    OrderId = orderId,
+                    ProductName = productName,
+                    SalePrice = salePrice,
+                    OrderStatus = SalesOrder.Status.Pending
+                }); 
+            }
+
+            // append new orders to csv file
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv", append: true))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv").Length == 0)
+                {
+                    csv.WriteHeader<SalesOrder>();
+                }
+
+                foreach (var order in newOrders)
+                {
+                    csv.NextRecord();
+                    csv.WriteRecord(order);
+                    
+                    writer.Flush(); // Ensure the data is written immediately
+                }
+            }
+
+            Console.WriteLine("Order added successfully!");
+        }   
 
         public void DeleteSale()
         {
+            // show all sales
+            ShowSales();
 
+            // get order id to delete
+            Console.WriteLine("Enter the order id to delete: ");
+            int orderToDelete = Convert.ToInt32(Console.ReadLine());
+
+            // read all records from csv file
+            List<SalesOrder> currentOrders;
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                currentOrders = csv.GetRecords<SalesOrder>().ToList();
+            }
+
+            // filter out records with matching order id
+            var filteredOrders = currentOrders.Where(o => o.OrderId != orderToDelete);
+
+            // write filtered records to csv file
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteHeader<SalesOrder>();
+               
+                foreach (var order in filteredOrders)
+                {
+                    csv.WriteRecord(order);
+                    csv.NextRecord();
+                }
+            }
+
+            Console.WriteLine($"Order: {orderToDelete}, was deleted successfully!");
+            Console.WriteLine("Press any key to return to the Sales Manager Menu.");
+            Console.ReadKey();
         }
-
+        
         public void SalesMenu()
         {
             Program.MenuHeader();

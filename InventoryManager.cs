@@ -84,7 +84,6 @@ namespace FinalProject
                     csv.NextRecord(); // Move to the next line after writing the header
                 }
 
-                csv.NextRecord();// Move to the next line after writing the record
                 csv.WriteRecord(product);
 
                 writer.Flush(); // Ensure the data is written immediately
@@ -121,8 +120,7 @@ namespace FinalProject
                 using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
                 {
                     csvWriter.WriteHeader<Product>();
-                    csvWriter.NextRecord(); // Move to the next line after writing the header
-
+                    
                     foreach (var item in records)
                     {
                     csvWriter.NextRecord();// Move to the next line after writing the record
@@ -143,6 +141,7 @@ namespace FinalProject
                 Console.ReadKey();
             }
         }
+
         public void InventoryMenu()
         {
             Program.MenuHeader();

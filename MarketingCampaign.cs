@@ -2,6 +2,7 @@
 {
     public class MarketingCampaign
     {
+        public int Id { get; set; }
         public string AdDetails { get; set; }
         public double Cost { get; set; }
         public int Views { get; set; }

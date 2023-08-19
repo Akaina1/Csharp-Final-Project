@@ -8,7 +8,7 @@
         public double AmountPerUnit { get; set; }
         public int Units { get; set; }
         public double TotalCost { get; set; }
-        public enum Status { Shipped, Delayed, Cancelled, Delivered }
+        public enum Status { Shipped, Delayed, Cancelled, Delivered, Pending }
         public Status OrderStatus { get; set; }
 
     }
