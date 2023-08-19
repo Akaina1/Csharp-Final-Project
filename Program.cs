@@ -8,7 +8,13 @@
             Logout,
             Exit,
         }
-        public static void MenuHeader() // Create a header for the menu that will display the current users name and admin level followed by the date and time, then a line break
+        public static void NotificationHeader() // static header to display notifications from the Notifications class
+        {
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("Notifications: ");
+            Console.WriteLine("--------------------------------------------------");
+        }
+        public static void MenuHeader() // static header for the menu that will display the current users name and admin level followed by the date and time, then a line break
         {
             Console.WriteLine($"Current User: {GlobalState.CurrentUser.Name}");
             Console.WriteLine($"Admin Level: {GlobalState.CurrentUser.adminLevel}");
@@ -25,27 +31,27 @@
             if (GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Admin || GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Manager || GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Employee)
             {
                 Console.WriteLine("[1.]  Inventory Manager"); // all employees can use the inventory manager
-                Console.WriteLine("[2.]  Sales Manager"); // all employees can use the sales manager
+                Console.WriteLine("[2.]  Sales Manager"); // all employees can use the sales manager   
             }
 
             if (GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Admin || GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Manager)
             {
                 Console.WriteLine("[3.]  Supplier Manager"); // only managers and admins can use the supplier manager
-
+                Console.WriteLine("[4.]  Notifications Manager");
             }
 
             if (GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Admin)
             {
-                Console.WriteLine("[4.]  User Manager"); // only admins can use the user manager
-                Console.WriteLine("[5.]  Expense Manager"); // only admins can use the expense manager
-                Console.WriteLine("[6.]  Marketing Manager"); // only admins can use the marketing manager
+                Console.WriteLine("[5.]  User Manager"); // only admins can use the user manager
+                Console.WriteLine("[6.]  Expense Manager"); // only admins can use the expense manager
+                Console.WriteLine("[7.]  Marketing Manager"); // only admins can use the marketing manager
             }
-            Console.WriteLine("[7.]  Logout"); // all users can logout
-            Console.WriteLine("[8.]  Exit Program"); // all users can exit the program
+            Console.WriteLine("[8.]  Logout"); // all users can logout
+            Console.WriteLine("[9.]  Exit Program"); // all users can exit the program
             Console.WriteLine("--------------------------------------------------");
             Console.Write("Enter choice: ");
         } // display the menu options
-        private static MenuActionResult HandleChoices(int userChoice, InventoryManager inventoryManager, SalesManager salesManager, SupplierManager supplierManager, UserManager userManager, ExpenseManger expenseManger, MarketingManager marketingManager)
+        private static MenuActionResult HandleChoices(int userChoice, InventoryManager inventoryManager, SalesManager salesManager, SupplierManager supplierManager, UserManager userManager, ExpenseManger expenseManger, MarketingManager marketingManager, NotificationManager notificationManager)
         {
             // Create switch statement
             int menuChoice = userChoice;
@@ -79,6 +85,22 @@
                     }
                     return MenuActionResult.Continue;
                 case 4:
+                    // Go to Notification manager menu
+                    if (GlobalState.CurrentUser?.adminLevel == User.AdminLevel.Employee)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You do not have access to this module.");
+                        Console.WriteLine("Press any key to return to main menu.");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        notificationManager.NotificationMenu();
+                    }
+                    return MenuActionResult.Continue;
+                case 5:
                     // Go to User manager menu
                     if (GlobalState.CurrentUser?.adminLevel != User.AdminLevel.Admin)
                     {
@@ -94,7 +116,7 @@
                         userManager.UserMenu();
                     }
                     return MenuActionResult.Continue;
-                case 5:
+                case 6:
                     // Go to expense manager menu
                     if (GlobalState.CurrentUser?.adminLevel != User.AdminLevel.Admin)
                     {
@@ -110,7 +132,7 @@
                         expenseManger.ExpenseMenu();
                     }
                     return MenuActionResult.Continue;
-                case 6:
+                case 7:
                     // Go to Marketing manager menu
                     if (GlobalState.CurrentUser?.adminLevel != User.AdminLevel.Admin)
                     {
@@ -126,14 +148,14 @@
                         marketingManager.MarketingMenu();
                     }
                     return MenuActionResult.Continue;
-                case 7:
+                case 8:
                     // Logout
                     Console.Clear();
                     Console.WriteLine("Logging you out...");
                     Console.ReadLine();
                     GlobalState.Logout();
                     return MenuActionResult.Logout;
-                case 8:
+                case 9:
                     // Exit program
                     Console.Clear();
                     Console.WriteLine("Exiting program...");
@@ -157,6 +179,7 @@
             InventoryManager inventoryManager = new();
             MarketingManager marketingManager = new();
             UserManager userManager = new();
+            NotificationManager notificationManager = new();
 
             do
             { 
@@ -180,7 +203,7 @@
                         DisplayMenu(); // Display the menu options
 
                         int userChoice = Convert.ToInt32(Console.ReadLine()); // Convert user input to int
-                        result = HandleChoices(userChoice, inventoryManager, salesManager, supplierManager, userManager, expenseManger, marketingManager); // Handle the user choice
+                        result = HandleChoices(userChoice, inventoryManager, salesManager, supplierManager, userManager, expenseManger, marketingManager, notificationManager); // Handle the user choice
 
                         if (result == MenuActionResult.Exit)
                         {

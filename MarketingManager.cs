@@ -18,7 +18,7 @@ namespace FinalProject
                 Console.WriteLine("---------------------------------------------------------------------------------------------------");
                 foreach (var record in records)
                 {
-                    // use getters to access private fields in Product class
+                    
                     Console.WriteLine($"{record.Id,-5}\t{record.AdDetails,-30}\t${record.Cost,-10:F2}\t{record.Views,-10}\t{record.Clicks,-10}\t{record.SalesFromAd,-10}");
                 }
                 Console.WriteLine("---------------------------------------------------------------------------------------------------");
