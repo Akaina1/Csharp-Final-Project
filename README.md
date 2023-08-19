@@ -3,7 +3,7 @@
 Some stipulations I had for the project:
 - Must be business related
 - Solve a real-world issue
-- Have a unique feature(s)
+- Have unique feature(s)
 - Implemented in console app form but should be scaleable
 
 an outline of the project so far:
