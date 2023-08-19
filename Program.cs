@@ -7,13 +7,7 @@
             Continue,
             Logout,
             Exit,
-        }
-        public static void NotificationHeader() // static header to display notifications from the Notifications class
-        {
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("Notifications: ");
-            Console.WriteLine("--------------------------------------------------");
-        }
+        } 
         public static void MenuHeader() // static header for the menu that will display the current users name and admin level followed by the date and time, then a line break
         {
             Console.WriteLine($"Current User: {GlobalState.CurrentUser.Name}");
@@ -24,7 +18,8 @@
         private static void DisplayMenu()
         {
             // Print header
-            Program.MenuHeader();
+            MenuHeader();
+            NotificationManager.NotificationHeader();
             Console.WriteLine("Welcome to the Inventory Management System!\n");
             Console.WriteLine("Please select which Module you would like to use.\n");
             Console.WriteLine("--------------------------------------------------");
@@ -180,6 +175,14 @@
             MarketingManager marketingManager = new();
             UserManager userManager = new();
             NotificationManager notificationManager = new();
+
+            // check database CSV files and update notifications if needed
+            InventoryCheck.CheckInventory();
+            //ExpenseCheck.CheckExpenses();
+            //OrderCheck.CheckOrders();
+            //MarketingCheck.CheckMarketing();
+            //SalesCheck.CheckSales();
+            //UsersCheck.CheckUsers();
 
             do
             { 

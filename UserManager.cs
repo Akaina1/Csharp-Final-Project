@@ -123,7 +123,7 @@ namespace FinalProject
                 }
                 else
                 {
-                    Console.WriteLine("No users found.");
+                    lastId = 1000;
                 }
             }
 
@@ -244,6 +244,7 @@ namespace FinalProject
         public void UserMenu()
         {
             Program.MenuHeader();
+            NotificationManager.NotificationHeader();
             Console.WriteLine("User Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show All Users");

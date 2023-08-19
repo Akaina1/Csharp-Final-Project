@@ -1,2 +1,12 @@
-Description,Date,notificationType,notificationModule
-this is a sample of data,2019-01-01,Urgent,Inventory
+Id,Description,Date,notificationType,notificationModule
+
+901,Low Inventory for: Product_19003,08/19/2023,Urgent,Inventory
+902,Low Inventory for: Product_19006,08/19/2023,Urgent,Inventory
+903,Low Inventory for: Product_19010,08/19/2023,Urgent,Inventory
+904,Low Inventory for: Product_19011,08/19/2023,Urgent,Inventory
+905,Low Inventory for: Product_19015,08/19/2023,Urgent,Inventory
+906,Low Inventory for: Product_19019,08/19/2023,Urgent,Inventory
+907,Low Inventory for: Product_19023,08/19/2023,Urgent,Inventory
+908,Low Inventory for: Product_19041,08/19/2023,Urgent,Inventory
+909,Low Inventory for: Product_19043,08/19/2023,Urgent,Inventory
+910,Low Inventory for: Product_19049,08/19/2023,Urgent,Inventory

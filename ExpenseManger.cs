@@ -57,7 +57,7 @@ namespace FinalProject
                 }
                 else
                 {
-                    Console.WriteLine("No records found.");
+                    lastId = 200;
                 }
             }
 
@@ -143,6 +143,7 @@ namespace FinalProject
         public void ExpenseMenu()
         {
             Program.MenuHeader();
+            NotificationManager.NotificationHeader();
             Console.WriteLine("Expense Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show Expenses");

@@ -41,9 +41,23 @@ namespace FinalProject
         {
             List<SalesOrder> newOrders = new();
 
-            // get order id
-            Console.WriteLine("Enter the order id: ");
-            int orderId = Convert.ToInt32(Console.ReadLine());
+            // get last order id from csv file
+            int lastId = 0;
+
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv")) // open file
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
+            {
+                var records = csv.GetRecords<SalesOrder>().ToList(); // convert to list
+
+                if (records.Any())
+                {
+                    lastId = records.Last().OrderId;
+                }
+                else
+                {
+                    lastId = 1000;
+                }
+            }
 
             while (true)
             {
@@ -58,7 +72,7 @@ namespace FinalProject
 
                 newOrders.Add(new SalesOrder
                 {
-                    OrderId = orderId,
+                    OrderId = lastId + 1,
                     ProductName = productName,
                     SalePrice = salePrice,
                     OrderStatus = SalesOrder.Status.Pending

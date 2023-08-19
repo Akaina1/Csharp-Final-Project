@@ -57,7 +57,7 @@ namespace FinalProject
                 }
                 else
                 {
-                    Console.WriteLine("No records found.");
+                    lastId = 6000;
                 }
             }
 
@@ -145,6 +145,7 @@ namespace FinalProject
         public void SupplierMenu()
         {
             Program.MenuHeader();
+            NotificationManager.NotificationHeader();
             Console.WriteLine("Supplier Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show Supplier Orders");

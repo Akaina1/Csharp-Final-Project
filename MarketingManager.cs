@@ -56,7 +56,7 @@ namespace FinalProject
                 }
                 else
                 {
-                    Console.WriteLine("No records found.");
+                    lastId = 500;
                 }
             }
 
@@ -142,6 +142,7 @@ namespace FinalProject
         public void MarketingMenu()
         {
             Program.MenuHeader();
+            NotificationManager.NotificationHeader();
             Console.WriteLine("Marketing Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show Marketing Campaigns");
