@@ -170,6 +170,9 @@
         }
         static void Main()
         {
+            // set console window size 
+            Console.SetWindowSize(200, 60);
+            
             // Instantiate Manager Objects
             SalesManager salesManager = new();
             ExpenseManger expenseManger = new();
@@ -178,14 +181,6 @@
             MarketingManager marketingManager = new();
             UserManager userManager = new();
             NotificationManager notificationManager = new();
-
-            // check database CSV files and update notifications if needed
-            InventoryCheck.CheckInventory();
-            ExpenseCheck.CheckExpense();
-            //OrderCheck.CheckOrders();
-            //MarketingCheck.CheckMarketing();
-            //SalesCheck.CheckSales();
-            //UsersCheck.CheckUsers();
 
             do
             { 

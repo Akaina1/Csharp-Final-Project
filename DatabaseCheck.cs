@@ -134,7 +134,47 @@ namespace FinalProject
     {
         public static void CheckSales()
         {
+            // check notifications.csv file for any notifications that have already been created
+            List<Notification> existingNotifications = new(); // create list of notifications
 
+            // open notifications csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                existingNotifications = csv.GetRecords<Notification>().ToList();
+            }
+
+            //open sales csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<SalesOrder>().ToList(); // convert to list
+
+                // make unique list of sales orders by OrderId, each order should only appear once
+                records = records.GroupBy(x => x.OrderId).Select(x => x.First()).ToList();
+
+                // check each record for conditions
+                foreach (var record in records)
+                {
+                    if (record.OrderStatus == SalesOrder.Status.Cancelled) // if SalesOrder.OrderStatus == Cancelled
+                    {
+                        if (!existingNotifications.Any(n => n.Description == $"Sales Order Cancelled: {record.OrderId}"))
+                        {
+                            // create notification
+                            NotificationManager.AutoNotification($"Sales Order Cancelled: {record.OrderId}", Notification.NotificationType.Urgent, Notification.Module.Sales);
+                        }
+                    }
+
+                    if (record.OrderStatus == SalesOrder.Status.Delayed) // if SalesOrder.OrderStatus == Delayed
+                    {
+                        if (!existingNotifications.Any(n => n.Description == $"Sales Order Delayed: {record.OrderId}"))
+                        {
+                            // create notification
+                            NotificationManager.AutoNotification($"Sales Order Delayed: {record.OrderId}", Notification.NotificationType.Warning, Notification.Module.Sales);
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -33,7 +33,7 @@ namespace FinalProject
             // do database checks everytime the notification header is displayed
             InventoryCheck.CheckInventory();
             ExpenseCheck.CheckExpense();
-            //SalesCheck.CheckSales();
+            SalesCheck.CheckSales();
             //UsersCheck.CheckUsers();
             //OrderCheck.CheckOrders();
             //MarketingCheck.CheckMarketing();
@@ -44,6 +44,9 @@ namespace FinalProject
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<Notification>().ToList(); // convert to list
+
+                // sort records by NotificationType, Urgent > Warning > Reminder
+                records = records.OrderBy(x => x.notificationType).ToList();
 
                 // print out each record in formatted table to console
 
