@@ -14,14 +14,14 @@ namespace FinalProject
 
                 // print out each record in formatted table to console
 
-                Console.WriteLine($"{"Id",-7} {"Details",-31} {"Cost",-15} {"Views",-15} {"Clicks",-15} {"SalesFromAd",-15}");
-                Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                Console.WriteLine($"{"Id",-7} {"Details",-31} {"Cost",-15} {"Views",-15} {"Clicks",-15} {"SalesFromAd",-15} {"StartDate",-15} {"EndDate"}");
+                Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------");
                 foreach (var record in records)
                 {
                     
-                    Console.WriteLine($"{record.Id,-5}\t{record.AdDetails,-30}\t${record.Cost,-10:F2}\t{record.Views,-10}\t{record.Clicks,-10}\t{record.SalesFromAd,-10}");
+                    Console.WriteLine($"{record.Id,-5}\t{record.AdDetails,-30}\t${record.Cost,-10:F2}\t{record.Views,-10}\t{record.Clicks,-10}\t{record.SalesFromAd,-10}\t{record.StartDate,-10}\t{record.EndDate,-10}");
                 }
-                Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------");
             }
         }
 
@@ -148,7 +148,8 @@ namespace FinalProject
             Console.WriteLine("[1.]  Show Marketing Campaigns");
             Console.WriteLine("[2.]  New Marketing Campaign");
             Console.WriteLine("[3.]  Delete Marketing Campaign");
-            Console.WriteLine("[4.]  Return to Main Menu");
+            Console.WriteLine("[4.]  Set Marketing Budget");
+            Console.WriteLine("[5.]  Return to Main Menu");
             Console.WriteLine("--------------------------------------------------");
 
             Console.Write("Enter choice: ");
@@ -178,6 +179,12 @@ namespace FinalProject
                     MarketingMenu();
                     break;
                 case 4:
+                    Console.Clear();
+                    MarketingCheck.SetMarketingBudget();
+                    Console.Clear();
+                    MarketingMenu();
+                    break;
+                case 5:
                     Console.Clear();
                     break;
                 default:

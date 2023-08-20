@@ -34,9 +34,8 @@ namespace FinalProject
             InventoryCheck.CheckInventory();
             ExpenseCheck.CheckExpense();
             SalesCheck.CheckSales();
-            //UsersCheck.CheckUsers();
             OrderCheck.CheckOrders();
-            //MarketingCheck.CheckMarketing();
+            MarketingCheck.CheckMarketing();
         }
         public void ShowNotifications()
         {
@@ -50,28 +49,28 @@ namespace FinalProject
 
                 // print out each record in formatted table to console
 
-                Console.WriteLine($"{"Id"} {"Description",16} {"Date",48} {"Type",15} {"Module",17}");
-                Console.WriteLine("------------------------------------------------------------------------------------------------------");
+                Console.WriteLine($"{"Id"} {"Description",16} {"Date",64} {"Type",15} {"Module",17}");
+                Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
                 foreach (var record in records) 
                 {
                     if (record.notificationType == Notification.NotificationType.Urgent)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"{record.Id}\t{record.Description,-50}\t{record.Date}\t{record.notificationType,-15}\t{record.notificationModule}");
+                        Console.WriteLine($"{record.Id}\t{record.Description,-65}\t{record.Date}\t{record.notificationType,-15}\t{record.notificationModule}");
                     }
                     else if (record.notificationType == Notification.NotificationType.Warning)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"{record.Id}\t{record.Description,-50}\t{record.Date}\t{record.notificationType,-15}\t{record.notificationModule}");
+                        Console.WriteLine($"{record.Id}\t{record.Description,-65}\t{record.Date}\t{record.notificationType,-15}\t{record.notificationModule}");
                     }
                     else if (record.notificationType == Notification.NotificationType.Reminder)
                     {
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine($"{record.Id}\t{record.Description,-50}\t{record.Date}\t{record.notificationType,-15}\t{record.notificationModule}");
+                        Console.WriteLine($"{record.Id}\t{record.Description,-65}\t{record.Date}\t{record.notificationType,-15}\t{record.notificationModule}");
                     }
                 }
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("------------------------------------------------------------------------------------------------------");
+                Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
             }
         }
         public void NotificationMenu()
@@ -211,12 +210,11 @@ namespace FinalProject
                 if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv").Length == 0)
                 {
                     csv.WriteHeader<Notification>();
+                    csv.NextRecord();// Move to the next line after writing the record
                 }
 
-                csv.WriteRecord(newNotification);
                 csv.NextRecord();// Move to the next line after writing the record
-               
-
+                csv.WriteRecord(newNotification);
                 writer.Flush(); // Ensure the data is written immediately
             }
         }

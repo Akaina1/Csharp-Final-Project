@@ -1,4 +1,4 @@
-Id,AdDetails,Cost,Views,Clicks,SalesFromAd
-501,Google AdSense,50,3500,245,25
-502,Facebook & Instagram Ads,100,8250,1012,129
-503,Email Notification Service,30,3300,262,71
+Id,AdDetails,Cost,Views,Clicks,SalesFromAd,StartDate,EndDate
+501,Google AdSense,50,3500,245,25,08/20/2023,09/15/2023
+502,Facebook & Instagram Ads,100,8250,1012,129,08/15/2023,09/15/2023
+503,Email Notification Service,30,3300,262,71,07/22/2023,08/22/2023

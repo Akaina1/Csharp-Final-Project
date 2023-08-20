@@ -233,9 +233,83 @@ namespace FinalProject
 
     public static class MarketingCheck
     {
+        public static double MarketingBudget {get; set;} = 200;
+        public static void SetMarketingBudget()
+        {
+            Console.WriteLine("Enter Marketing Budget ($): ");
+            int newBudget = Convert.ToInt32(Console.ReadLine());
+
+            // set InventoryCheck.minInventory to user input
+            MarketingBudget = newBudget;
+
+            Console.WriteLine("Marketing budget set to: $" + newBudget);
+        }
         public static void CheckMarketing()
         {
+            // check notifications.csv file for any notifications that have already been created
 
+            List<Notification> existingNotifications = new(); // create list of notifications
+
+            // open notifications csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                existingNotifications = csv.GetRecords<Notification>().ToList();
+            }
+
+            //open Marketing csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Marketing.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<MarketingCampaign>().ToList(); // convert to list
+               
+                // check each record for conditions
+                foreach (var record in records)
+                {
+                    if (record.EndDate >= DateOnly.FromDateTime(DateTime.Today) && record.EndDate <= DateOnly.FromDateTime(DateTime.Today.AddDays(30))) // marketing campaign ends in 30 days
+                    {
+                        if (!existingNotifications.Any(n => n.Description == $"Marketing Campaign Ends in 30 days: {record.AdDetails}"))
+                        {
+                            // create notification
+                            NotificationManager.AutoNotification($"Marketing Campaign Ends in 30 days: {record.AdDetails}", Notification.NotificationType.Reminder, Notification.Module.Marketing);
+                        }
+                    }
+
+                    if (record.EndDate >= DateOnly.FromDateTime(DateTime.Today) && record.EndDate <= DateOnly.FromDateTime(DateTime.Today.AddDays(7))) // marketing campaign ends in 7 days
+                    {
+                        if (!existingNotifications.Any(n => n.Description == $"Marketing Campaign Ends in 7 days: {record.AdDetails}"))
+                        {
+                            // create notification
+                            NotificationManager.AutoNotification($"Marketing Campaign Ends in 7 days: {record.AdDetails}", Notification.NotificationType.Warning, Notification.Module.Marketing);
+                        }
+                    }
+                }
+
+                double totalCost = 0;
+                foreach (var campaign in records)
+                {
+                    totalCost += campaign.Cost;
+                }
+                              
+                // check if marketing campaign is close to budget, add Cost of every campaign in the Marketing.csv file
+                if (totalCost >= MarketingBudget) // if over budget
+                {
+                    if (!existingNotifications.Any(n => n.Description == $"Over Marketing Budget: {totalCost} / {MarketingBudget}"))
+                    {
+                        // create notification
+                        NotificationManager.AutoNotification($"Over Marketing Budget: {totalCost} / {MarketingBudget}", Notification.NotificationType.Urgent, Notification.Module.Marketing);
+                    }
+                }
+
+                if (totalCost >= (MarketingBudget * 0.80)) // marketing campaign is within 20% of budget
+                {
+                    if (!existingNotifications.Any(n => n.Description == $"Using 80%+ of Marketing Budget: ${totalCost} / ${MarketingBudget}"))
+                    {
+                        // create notification
+                        NotificationManager.AutoNotification($"Using 80%+ of Marketing Budget: ${totalCost} / ${MarketingBudget}", Notification.NotificationType.Warning, Notification.Module.Marketing);
+                    }
+                }
+            }
         }
     }
 }

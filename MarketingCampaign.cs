@@ -8,5 +8,7 @@
         public int Views { get; set; }
         public int Clicks { get; set; }
         public int SalesFromAd { get; set; }
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
     }
 }

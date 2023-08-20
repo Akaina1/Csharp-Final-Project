@@ -182,6 +182,13 @@
             UserManager userManager = new();
             NotificationManager notificationManager = new();
 
+            // do database check when program starts
+            InventoryCheck.CheckInventory();
+            ExpenseCheck.CheckExpense();
+            SalesCheck.CheckSales();
+            OrderCheck.CheckOrders();
+            MarketingCheck.CheckMarketing();
+
             do
             { 
                 // Allow the user to Login
