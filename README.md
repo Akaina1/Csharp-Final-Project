@@ -21,10 +21,10 @@ Inventory Management
 - generate reports
 - Unique Feature: predictive restocking feature that suggests when to reorder based on past sales data
 
-Invoice Management
-- Create invoices
-- Send invoices
-- Track invoices
+Sales Management
+- Create Sales order
+- Delete Sales order
+- Track Sales
 - handle payments
 - handle overdue notice
 - Unique Feature: discounting mechanism where early payments can receive a discount, encouraging timely payments
