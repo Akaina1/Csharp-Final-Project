@@ -10,10 +10,13 @@
         } 
         public static void MenuHeader() // static header for the menu that will display the current users name and admin level followed by the date and time, then a line break
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Current User: {GlobalState.CurrentUser.Name}");
             Console.WriteLine($"Admin Level: {GlobalState.CurrentUser.adminLevel}");
             Console.WriteLine($"Date: {DateTime.Now}");
+            Console.ResetColor();
             Console.WriteLine("--------------------------------------------------");
+            
         }
         private static void DisplayMenu()
         {

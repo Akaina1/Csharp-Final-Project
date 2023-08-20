@@ -24,6 +24,3 @@ Id,SupplierName,ProductName,AmountPerUnit,Units,TotalCost,OrderStatus
 6023,Supplier_05,Product_19020,3.73,30,111.9,Delivered
 6024,Supplier_05,Product_19049,2.82,30,84.6,Shipped
 6025,Supplier_04,Product_19035,2.82,30,84.6,Delivered
-6026,Test_Supplier,Product_19003,3.96,30,118.8,Pending
-6027,Test_Supplier01,Product_19003,3.96,30,118.8,Pending
-6028,Test_Supplier01,Product_19003,3.96,30,118.8,Pending

@@ -1,13 +1,43 @@
 Id,Description,Date,notificationType,notificationModule
-911,Expense due within 7 days: Building Rent,08/19/2023,Urgent,Expense
-912,Expense due within 7 days: Insurance,08/19/2023,Urgent,Expense
+902,Low Inventory for: Product_19006,08/20/2023,Warning,Inventory
+903,Low Inventory for: Product_19010,08/20/2023,Warning,Inventory
+904,Very Low Inventory for: Product_19011,08/20/2023,Urgent,Inventory
+905,Very Low Inventory for: Product_19015,08/20/2023,Urgent,Inventory
+906,Very Low Inventory for: Product_19019,08/20/2023,Urgent,Inventory
+907,Low Inventory for: Product_19023,08/20/2023,Warning,Inventory
+908,Very Low Inventory for: Product_19041,08/20/2023,Urgent,Inventory
+909,Low Inventory for: Product_19043,08/20/2023,Warning,Inventory
+910,Very Low Inventory for: Product_19049,08/20/2023,Urgent,Inventory
+911,Expense due within 7 days: Building Rent,08/20/2023,Urgent,Expense
+912,Expense due within 7 days: Insurance,08/20/2023,Urgent,Expense
 913,Very Low Inventory for: Product_19003,08/20/2023,Urgent,Inventory
-914,Low Inventory for: Product_19006,08/20/2023,Warning,Inventory
-915,Low Inventory for: Product_19010,08/20/2023,Warning,Inventory
-916,Very Low Inventory for: Product_19011,08/20/2023,Urgent,Inventory
-917,Very Low Inventory for: Product_19015,08/20/2023,Urgent,Inventory
-918,Very Low Inventory for: Product_19019,08/20/2023,Urgent,Inventory
-919,Low Inventory for: Product_19023,08/20/2023,Warning,Inventory
-920,Very Low Inventory for: Product_19041,08/20/2023,Urgent,Inventory
-921,Low Inventory for: Product_19043,08/20/2023,Warning,Inventory
-922,Very Low Inventory for: Product_19049,08/20/2023,Urgent,Inventory
+914,Expense due within 30 days: Building Rent,08/20/2023,Reminder,Expense
+915,Expense due within 30 days: Supplier Order #6001,08/20/2023,Reminder,Expense
+916,Expense due within 30 days: Supplier Order #6002,08/20/2023,Reminder,Expense
+917,Expense due within 30 days: Supplier Order #6003,08/20/2023,Reminder,Expense
+918,Expense due within 30 days: Supplier Order #6004,08/20/2023,Reminder,Expense
+919,Expense due within 30 days: Supplier Order #6005,08/20/2023,Reminder,Expense
+920,Expense due within 30 days: Supplier Order #6006,08/20/2023,Reminder,Expense
+921,Expense due within 30 days: Supplier Order #6007,08/20/2023,Reminder,Expense
+922,Expense due within 30 days: Supplier Order #6008,08/20/2023,Reminder,Expense
+923,Expense due within 30 days: Supplier Order #6009,08/20/2023,Reminder,Expense
+924,Expense due within 30 days: Supplier Order #6010,08/20/2023,Reminder,Expense
+925,Expense due within 30 days: Supplier Order #6011,08/20/2023,Reminder,Expense
+926,Expense due within 30 days: Supplier Order #6012,08/20/2023,Reminder,Expense
+927,Expense due within 30 days: Supplier Order #6013,08/20/2023,Reminder,Expense
+928,Expense due within 30 days: Supplier Order #6014,08/20/2023,Reminder,Expense
+929,Expense due within 30 days: Supplier Order #6015,08/20/2023,Reminder,Expense
+930,Expense due within 30 days: Supplier Order #6016,08/20/2023,Reminder,Expense
+931,Expense due within 30 days: Supplier Order #6017,08/20/2023,Reminder,Expense
+932,Expense due within 30 days: Supplier Order #6018,08/20/2023,Reminder,Expense
+933,Expense due within 30 days: Supplier Order #6019,08/20/2023,Reminder,Expense
+934,Expense due within 30 days: Supplier Order #6020,08/20/2023,Reminder,Expense
+935,Expense due within 30 days: Supplier Order #6021,08/20/2023,Reminder,Expense
+936,Expense due within 30 days: Supplier Order #6022,08/20/2023,Reminder,Expense
+937,Expense due within 30 days: Supplier Order #6023,08/20/2023,Reminder,Expense
+938,Expense due within 30 days: Supplier Order #6024,08/20/2023,Reminder,Expense
+939,Expense due within 30 days: Supplier Order #6025,08/20/2023,Reminder,Expense
+940,Expense due within 30 days: Building Electricity,08/20/2023,Reminder,Expense
+941,Expense due within 30 days: Insurance,08/20/2023,Reminder,Expense
+942,Expense due within 30 days: Marketing Budget,08/20/2023,Reminder,Expense
+943,Expense due within 30 days: Employee Salary,08/20/2023,Reminder,Expense
