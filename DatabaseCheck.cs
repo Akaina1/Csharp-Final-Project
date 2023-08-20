@@ -31,16 +31,25 @@ namespace FinalProject
                 // check each record for conditions
                 foreach (var record in records)
                 {
-                    if (record.InStock <= MinInventory)
+                    if (record.InStock <= (MinInventory / 2) ) // very low inventory Urgent
+                    {
+                        if (!existingNotifications.Any(n => n.Description == $"Very Low Inventory for: {record.Name}"))
+                        {
+                            // create notification
+                            NotificationManager.AutoNotification($"Very Low Inventory for: {record.Name}", Notification.NotificationType.Urgent, Notification.Module.Inventory);
+                        }
+                    }
+
+                   else if (record.InStock <= MinInventory) // low inventory Warning
                     {
                         if (!existingNotifications.Any(n => n.Description == $"Low Inventory for: {record.Name}"))
                         {
                             // create notification
-                            NotificationManager.AutoNotification($"Low Inventory for: {record.Name}", Notification.NotificationType.Urgent, Notification.Module.Inventory);
+                            NotificationManager.AutoNotification($"Low Inventory for: {record.Name}", Notification.NotificationType.Warning, Notification.Module.Inventory);
                         }    
-                    }
+                    }                  
 
-                    if (record.InStock >= MaxInventory)
+                    else if (record.InStock >= MaxInventory) // high inventory
                     {
                         if (!existingNotifications.Any(n => n.Description == $"High Inventory for: {record.Name}"))
                         {
@@ -99,7 +108,7 @@ namespace FinalProject
                 // check each record for conditions
                 foreach (var record in records)
                 {
-                    if (record.DueDate >= DateOnly.FromDateTime(DateTime.Today) && record.DueDate <= DateOnly.FromDateTime(DateTime.Today.AddDays(7)))
+                    if (record.DueDate >= DateOnly.FromDateTime(DateTime.Today) && record.DueDate <= DateOnly.FromDateTime(DateTime.Today.AddDays(7))) // bill due within 7 days
                     {
                         if (!existingNotifications.Any(n => n.Description == $"Expense due within 7 days: {record.Description}"))
                         {

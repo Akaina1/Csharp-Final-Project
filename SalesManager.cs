@@ -98,6 +98,9 @@ namespace FinalProject
             }
 
             Console.WriteLine("Order added successfully!");
+
+            // create Notification using AutoNotification() method
+            NotificationManager.AutoNotification($"New Order Pending: #[{lastId + 1}]", Notification.NotificationType.Urgent,Notification.Module.Sales);
         }   
 
         public void DeleteSale()

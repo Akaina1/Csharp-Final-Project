@@ -22,11 +22,19 @@ namespace FinalProject
                 {
                     if (record.notificationType == Notification.NotificationType.Urgent)
                     {
-                        Console.WriteLine($">> {record.Description,-5}\t{record.Date,-15}");
+                        Console.WriteLine($"[{record.Date}] {record.Description}");
                     }
                 }
             }
             Console.WriteLine("--------------------------------------------------");
+
+            // do database checks everytime the notification header is displayed
+            InventoryCheck.CheckInventory();
+            ExpenseCheck.CheckExpense();
+            //SalesCheck.CheckSales();
+            //UsersCheck.CheckUsers();
+            //OrderCheck.CheckOrders();
+            //MarketingCheck.CheckMarketing();
         }
         public void ShowNotifications()
         {
@@ -136,6 +144,7 @@ namespace FinalProject
                     break;
                 case 3:
                     Console.Clear();
+                    NotificationMenu();
                     break;                  
                 default:
                     Console.Clear();
@@ -186,6 +195,35 @@ namespace FinalProject
 
                 csv.NextRecord();// Move to the next line after writing the record
                 csv.WriteRecord(newNotification);
+
+                writer.Flush(); // Ensure the data is written immediately
+            }
+        }
+        public static void DeleteNotification(int id)
+        {
+            // delete notififcation with matching id
+            var records = new List<Notification>();
+
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv")) // open file
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
+            {
+                records = csv.GetRecords<Notification>().ToList(); // convert to list
+            }
+
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteHeader<Notification>();
+                csv.NextRecord();// Move to the next line after writing the record
+
+                foreach (var record in records)
+                {
+                    if (record.Id != id)
+                    {
+                        csv.WriteRecord(record);
+                        csv.NextRecord();// Move to the next line after writing the record
+                    }
+                }
 
                 writer.Flush(); // Ensure the data is written immediately
             }

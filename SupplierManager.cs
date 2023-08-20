@@ -88,6 +88,28 @@ namespace FinalProject
 
                 writer.Flush(); // Ensure the data is written immediately
             }
+
+            // check if there is a low stock notification for this product by seeing if productName exists in the Notification description string
+            // only Notifications within the Inventory Module are checked {Notification.Module.Inventory}
+            List<Notification> notifRecords;
+            using (var writer = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv")) // open file
+            using (var csv = new CsvReader(writer, CultureInfo.InvariantCulture)) // read file
+            {
+                notifRecords = csv.GetRecords<Notification>().ToList(); // convert to list
+            }
+
+            foreach (var record in notifRecords)
+            {
+                if (record.notificationModule == Notification.Module.Inventory && record.Description.Contains(productName))
+                {
+                    // if there is a low stock notification for this product, delete it
+                    NotificationManager.DeleteNotification(record.Id);
+                }
+            }
+
+            Console.WriteLine("Order added successfully.");
+            Console.WriteLine("Press any key to return to the Supplier Manager Menu.");
+            Console.ReadKey();
         }
 
         public void DeleteOrder()
