@@ -21,6 +21,7 @@ namespace FinalProject
                 Console.WriteLine("---------------------------------------------------------------");
                 foreach (var group in groupedRecords)
                 {
+                    if (group.First().OrderStatus == SalesOrder.Status.Cancelled) { Console.ForegroundColor = ConsoleColor.Red; }
                     double totalCost = 0;
                     Console.WriteLine($"Id: {group.Key, -45}\t{group.First().OrderStatus}"); //group.First() is the first record in the group
 
@@ -32,6 +33,7 @@ namespace FinalProject
                     }
 
                     Console.WriteLine($"\n\nTotal Cost:  ${totalCost,5:F2}");
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("---------------------------------------------------------------");
                 }
             }
@@ -77,6 +79,35 @@ namespace FinalProject
                     SalePrice = salePrice,
                     OrderStatus = SalesOrder.Status.Pending
                 }); 
+
+                // decrement the InStock value for the product by comparing productName to ProductName in Inventory.csv
+                List<Product> currentInventory;
+
+                using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv"))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    currentInventory = csv.GetRecords<Product>().ToList();
+                }
+
+                var filteredInventory = currentInventory.Where(p => p.Name == productName);
+
+                foreach (var product in filteredInventory)
+                {
+                    // if the product is out of stock, show warning message and exit function
+                    if (product.InStock == 0)
+                    {
+                        Console.WriteLine("This product is out of stock. Please reorder");
+                        return;
+                    }
+                    else  { product.InStock--; } 
+                }
+
+                // write new inventory to csv file
+                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv", append: true))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(currentInventory);
+                }
             }
 
             // append new orders to csv file
@@ -122,6 +153,40 @@ namespace FinalProject
 
             // filter out records with matching order id
             var filteredOrders = currentOrders.Where(o => o.OrderId != orderToDelete);
+
+            foreach (var order in currentOrders)
+            {
+                if (order.OrderStatus == SalesOrder.Status.Cancelled)
+                {
+                    // if SalesOrder.OrderStatus == Cancelled, add stock back for each product in deleted order
+                    List<Product> currentInventory;
+                    using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv"))
+                    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    {
+                        currentInventory = csv.GetRecords<Product>().ToList();
+                    }
+
+                    var filteredInventory = currentInventory.Where(p => p.Name == currentOrders.Where(o => o.OrderId == orderToDelete).Select(o => o.ProductName).FirstOrDefault());
+
+                    foreach (var product in filteredInventory)
+                    {
+                        product.InStock++;
+                    }
+
+                    // write filtered inventory to csv file
+                    using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv"))
+                    using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                    {
+                        csv.WriteHeader<Product>();
+
+                        foreach (var product in currentInventory)
+                        {
+                            csv.NextRecord();
+                            csv.WriteRecord(product);
+                        }
+                    }
+                }
+            }
 
             // write filtered records to csv file
             using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv"))

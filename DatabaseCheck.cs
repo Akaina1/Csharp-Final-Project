@@ -132,21 +132,33 @@ namespace FinalProject
 
     public static class SalesCheck
     {
+        public static void CheckSales()
+        {
 
+        }
     }
 
     public static class UsersCheck
     {
+        public static void CheckUsers()
+        {
 
+        }
     }
 
     public static class OrderCheck
     {
+        public static void CheckOrders()
+        {
 
+        }
     }
 
     public static class MarketingCheck
     {
+        public static void CheckMarketing()
+        {
 
+        }
     }
 }

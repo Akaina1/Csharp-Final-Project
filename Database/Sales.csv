@@ -16,7 +16,7 @@ OrderId,ProductName,SalePrice,OrderStatus
 1007,Product_19012,129.54,Delivered
 1008,Product_19016,7.8,Shipped
 1008,Product_19024,5.7,Shipped
-1009,Product_19015,197.96,Delivered
+1009,Product_19015,197.96,Cancelled
 1010,Product_19008,170.35,Shipped
 1010,Product_19013,6.72,Shipped
 1010,Product_19006,77.19,Shipped
