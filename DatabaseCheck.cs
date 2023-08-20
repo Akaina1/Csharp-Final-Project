@@ -234,14 +234,43 @@ namespace FinalProject
     public static class MarketingCheck
     {
         public static double MarketingBudget {get; set;} = 200;
+        public static double totalCost { get; set;} = 0;
         public static void SetMarketingBudget()
         {
             Console.WriteLine("Enter Marketing Budget ($): ");
             int newBudget = Convert.ToInt32(Console.ReadLine());
+                       
+            // delete over budget notifications
+            List<Notification> existingNotifications; // create list of notifications
 
+            // open notifications csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                existingNotifications = csv.GetRecords<Notification>().ToList();
+            }
+
+            // get only Marketing notifications
+            existingNotifications = existingNotifications.Where(n => n.notificationModule == Notification.Module.Marketing).ToList();
+
+            // check if new budget makes notifications invalid
+            foreach (var notification in existingNotifications)
+            {
+                if (notification.Description == $"Using 80%+ of Marketing Budget: ${totalCost} / ${MarketingBudget}")
+                {
+                    // delete notification
+                    NotificationManager.DeleteNotification(notification.Id);
+                }
+
+                if (notification.Description == $"Over Marketing Budget: {totalCost} / {MarketingBudget}")
+                {
+                    // delete notification
+                    NotificationManager.DeleteNotification(notification.Id);
+                }
+            } 
+            
             // set InventoryCheck.minInventory to user input
             MarketingBudget = newBudget;
-
             Console.WriteLine("Marketing budget set to: $" + newBudget);
         }
         public static void CheckMarketing()
@@ -285,7 +314,7 @@ namespace FinalProject
                     }
                 }
 
-                double totalCost = 0;
+                totalCost = 0; // reset totalCost
                 foreach (var campaign in records)
                 {
                     totalCost += campaign.Cost;

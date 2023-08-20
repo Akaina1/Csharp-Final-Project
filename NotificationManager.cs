@@ -80,10 +80,8 @@ namespace FinalProject
             Console.WriteLine("Notification Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show all Notifications");
-            Console.WriteLine("[2.]  Add Notification");
-            Console.WriteLine("[3.]  Delete Notification");
-            Console.WriteLine("[4.]  Notification Options");
-            Console.WriteLine("[5.]  Return to Main Menu");
+            Console.WriteLine("[2.]  Notification Options");
+            Console.WriteLine("[3.]  Return to Main Menu");
             Console.WriteLine("--------------------------------------------------");
 
             Console.Write("Enter choice: ");
@@ -94,7 +92,6 @@ namespace FinalProject
                 case 1:
                     Console.Clear();
                     ShowNotifications();
-
                     Console.WriteLine("Press any key to return to the Notification Manager Menu.");
                     Console.ReadKey();
                     Console.Clear();
@@ -102,21 +99,9 @@ namespace FinalProject
                     break;
                 case 2:
                     Console.Clear();
-                    // NewNotification();
-                    Console.Clear();
-                    NotificationMenu();
-                    break;
-                case 3:
-                    Console.Clear();
-                    // DeleteNotification();
-                    Console.Clear();
-                    NotificationMenu();
-                    break;
-                case 4:
-                    Console.Clear();
                     OptionsMenu();
                     break;
-                case 5:
+                case 3:
                     Console.Clear();
                     break;
                 default:
