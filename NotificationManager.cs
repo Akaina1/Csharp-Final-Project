@@ -35,7 +35,7 @@ namespace FinalProject
             ExpenseCheck.CheckExpense();
             SalesCheck.CheckSales();
             //UsersCheck.CheckUsers();
-            //OrderCheck.CheckOrders();
+            OrderCheck.CheckOrders();
             //MarketingCheck.CheckMarketing();
         }
         public void ShowNotifications()

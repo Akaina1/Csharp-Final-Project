@@ -43,3 +43,8 @@ Id,Description,Date,notificationType,notificationModule
 943,Expense due within 30 days: Employee Salary,08/20/2023,Reminder,Expense
 944,Sales Order Delayed: 1002,08/20/2023,Warning,Sales
 945,Sales Order Cancelled: 1009,08/20/2023,Urgent,Sales
+946,Product Order Delayed: 6004,08/20/2023,Warning,Supplier
+947,Product Order Cancelled: 6007,08/20/2023,Urgent,Supplier
+948,Product Order Delayed: 6016,08/20/2023,Warning,Supplier
+949,Product Order Delayed: 6017,08/20/2023,Warning,Supplier
+950,Product Order Delayed: 6021,08/20/2023,Warning,Supplier

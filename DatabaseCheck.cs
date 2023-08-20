@@ -190,7 +190,44 @@ namespace FinalProject
     {
         public static void CheckOrders()
         {
+            // check notifications.csv file for any notifications that have already been created
+            List<Notification> existingNotifications = new(); // create list of notifications
 
+            // open notifications csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                existingNotifications = csv.GetRecords<Notification>().ToList();
+            }
+
+            //open sales csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Orders.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Order>().ToList(); // convert to list
+
+                // check each record for conditions
+                foreach (var record in records)
+                {
+                    if (record.OrderStatus == Order.Status.Cancelled) // if SalesOrder.OrderStatus == Cancelled
+                    {
+                        if (!existingNotifications.Any(n => n.Description == $"Product Order Cancelled: {record.Id}"))
+                        {
+                            // create notification
+                            NotificationManager.AutoNotification($"Product Order Cancelled: {record.Id}", Notification.NotificationType.Urgent, Notification.Module.Supplier);
+                        }
+                    }
+
+                    if (record.OrderStatus == Order.Status.Delayed) // if SalesOrder.OrderStatus == Delayed
+                    {
+                        if (!existingNotifications.Any(n => n.Description == $"Product Order Delayed: {record.Id}"))
+                        {
+                            // create notification
+                            NotificationManager.AutoNotification($"Product Order Delayed: {record.Id}", Notification.NotificationType.Warning, Notification.Module.Supplier);
+                        }
+                    }
+                }
+            }
         }
     }
 
