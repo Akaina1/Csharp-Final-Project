@@ -10,6 +10,7 @@ namespace FinalProject
         public double Cost { get; set; } // in Dollars
         public int InStock { get; set; }
         public int SoldLastMonth { get; set; }
+        public int SoldThisMonth { get; set; }
         public int OnOrder { get; set; }
     }
 }

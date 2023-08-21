@@ -14,14 +14,14 @@ namespace FinalProject
 
                 // print out each record in formatted table to console
 
-                Console.WriteLine($"{"Id",-7} {"Name",-23} {"Price",-15} {"Cost",-15} {"InStock",-15} {"SoldLastMonth",-15} {"OnOrder"}");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------------");
+                Console.WriteLine($"{"Id",-7} {"Name",-15} {"Price",-10} {"Cost",-12} {"InStock",-10} {"SoldThisMonth",-15} {"SoldLastMonth",-15} {"OnOrder"}");
+                Console.WriteLine("--------------------------------------------------------------------------------------------------");
                 foreach (var record in records)
                 {
                     // use getters to access private fields in Product class
-                    Console.WriteLine($"{record.Id,-5}\t{record.Name,-20}\t${record.Price,-10:F2}\t${record.Cost,-7:F2}\t{record.InStock,-8}\t{record.SoldLastMonth,-13}\t{record.OnOrder}");
+                    Console.WriteLine($"{record.Id}\t{record.Name}\t${record.Price:F2}\t   ${record.Cost:F2}\t{record.InStock}\t   {record.SoldThisMonth,-12}\t   {record.SoldLastMonth, -12}\t   {record.OnOrder}");
                 }
-                Console.WriteLine("-------------------------------------------------------------------------------------------------------");
+                Console.WriteLine("--------------------------------------------------------------------------------------------------");
             }
         }
 
@@ -54,6 +54,7 @@ namespace FinalProject
                 Price = price,
                 Cost = cost,
                 InStock = inStock,
+                SoldThisMonth = 0,
                 SoldLastMonth = soldLastMonth,
                 OnOrder = 0
             };
