@@ -194,6 +194,8 @@
             // set console window size 
             Console.SetWindowSize(200, 60);
 
+            FileManager.ArchiveLastMonthCSVs();
+
             // Instantiate Manager Objects
             SalesManager salesManager = new();
             ExpenseManger expenseManger = new();
@@ -210,8 +212,8 @@
             ExpenseCheck.CheckExpense();
             SalesCheck.CheckSales();
             OrderCheck.CheckOrders();
-            MarketingCheck.CheckMarketing();
-           
+            MarketingCheck.CheckMarketing();         
+
             do
             { 
                 // Allow the user to Login

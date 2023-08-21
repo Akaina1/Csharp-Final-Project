@@ -413,7 +413,7 @@ namespace FinalProject
         public static string GetFilePathForTable(string tableName)
         {
             string currentDatabase = GetCurrentDatabaseFile(tableName);
-            string path = Path.Combine("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\",currentDatabase);
+            string path = Path.Combine("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\",currentDatabase);
             return path;
         }
 
@@ -424,6 +424,79 @@ namespace FinalProject
             {
                 File.Create(path).Close();
             }
+        }
+
+        public static void ArchiveLastMonthCSVs()
+        {
+            if (DateTime.Today.Day == GlobalState.ResetDay) //check if today is the day to reset the database
+            {
+                Console.WriteLine("Archiving last month's CSV files...");
+                Console.ReadKey();
+
+                string currentDatabasePath = ("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database");
+
+                // get current month's folder name
+                DateTime currentMonth = DateTime.Now;
+                string newMonthFolderName = currentMonth.ToString("yyyy_MM") + "_Database";
+                string archiveDatabasePath = Path.Combine("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Archived Databases", newMonthFolderName);
+
+                // check if folder exists, if not create it
+                if (!Directory.Exists(archiveDatabasePath))
+                {
+                    Directory.CreateDirectory(archiveDatabasePath);
+                }
+
+                // get file name prefix           
+                DateTime nextMonth = currentMonth.AddMonths(1);
+                string nextMonthPrefix = nextMonth.ToString("yyyy_MM_");
+
+                // get all files in current database folder
+                string[] currentDatabaseFiles = Directory.GetFiles(currentDatabasePath);
+
+                // loop through each file in current database folder
+                foreach (string file in currentDatabaseFiles)
+                {
+                    string fileName = Path.GetFileName(file);
+                    string destinationPath = Path.Combine(archiveDatabasePath, fileName);
+
+                    // First handle copying for special files
+                    if (fileName.EndsWith("Users.csv", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string newPath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Users.csv");
+                        File.Copy(file, newPath);
+                        File.Move(file, destinationPath);
+                    }
+                    else if (fileName.EndsWith("Options.csv", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string newPath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Options.csv");
+                        File.Copy(file, newPath);
+                        File.Move(file, destinationPath);
+                    }
+                    else
+                    {
+                        // move all qualifying files to the archive
+                        File.Move(file, destinationPath);
+                    }
+                } 
+
+            // create new database files for each table
+            ResetDatabase();
+
+            Console.WriteLine("Finished archiving last month's CSV files.");
+            Console.ReadKey();
+            
+            }
+        }
+
+        public static void ResetDatabase()
+        {
+            // create new database files for each table
+            CreateDatabaseFiles("Inventory");
+            CreateDatabaseFiles("Marketing");
+            CreateDatabaseFiles("Notifications");
+            CreateDatabaseFiles("Sales");
+            CreateDatabaseFiles("Orders");
+            CreateDatabaseFiles("Expenses");    
         }
     }
 }
