@@ -7,7 +7,7 @@ namespace FinalProject
     {
         public void ShowExpenses() 
         {
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Expenses.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Expenses"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<Expense>().ToList(); // convert to list
@@ -50,7 +50,7 @@ namespace FinalProject
             //get id of last entry in csv file
             int lastId = 0;
 
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Expenses.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Expenses"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<Expense>().ToList(); // convert to list
@@ -75,10 +75,10 @@ namespace FinalProject
             };
 
             // add new expense to csv file
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Expenses.csv", append: true)) // open file
+            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Expenses"), append: true )) // open file and append to end
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
             {
-                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Expenses.csv").Length == 0)
+                if (new FileInfo(FileManager.GetFilePathForTable("Expenses")).Length == 0)
                 {
                     csv.WriteHeader<Expense>();
                     csv.NextRecord(); // Move to the next line after writing the header
@@ -104,7 +104,7 @@ namespace FinalProject
             List<Expense> records;
 
             // check if id exists in csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Expenses.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Expenses"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 records = csv.GetRecords<Expense>().ToList(); // convert to list
@@ -118,7 +118,7 @@ namespace FinalProject
                 records.Remove(expenseToDelete);
 
                 // write updated list to csv file
-                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Expenses.csv", append: false)) // open file
+                using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Expenses"), append: false)) // open file
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
                 {
                     csv.WriteHeader<Expense>();

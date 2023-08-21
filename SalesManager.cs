@@ -7,7 +7,7 @@ namespace FinalProject
     {
         public void ShowSales()
         {
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Sales"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<SalesOrder>().ToList(); // convert to list
@@ -46,7 +46,7 @@ namespace FinalProject
             // get last order id from csv file
             int lastId = 0;
 
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Sales"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<SalesOrder>().ToList(); // convert to list
@@ -83,7 +83,7 @@ namespace FinalProject
                 // decrement the InStock value for the product by comparing productName to ProductName in Inventory.csv
                 List<Product> currentInventory;
 
-                using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv"))
+                using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory")))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     currentInventory = csv.GetRecords<Product>().ToList();
@@ -103,7 +103,7 @@ namespace FinalProject
                 }
 
                 // write new inventory to csv file
-                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv", append: true))
+                using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory"), append: true))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
                     csv.WriteRecords(currentInventory);
@@ -111,10 +111,10 @@ namespace FinalProject
             }
 
             // append new orders to csv file
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv", append: true))
+            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Sales"), append: true))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv").Length == 0)
+                if (new FileInfo(FileManager.GetFilePathForTable("Sales")).Length == 0)
                 {
                     csv.WriteHeader<SalesOrder>();
                 }
@@ -145,7 +145,7 @@ namespace FinalProject
 
             // read all records from csv file
             List<SalesOrder> currentOrders;
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Sales")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 currentOrders = csv.GetRecords<SalesOrder>().ToList();
@@ -160,7 +160,7 @@ namespace FinalProject
                 {
                     // if SalesOrder.OrderStatus == Cancelled, add stock back for each product in deleted order
                     List<Product> currentInventory;
-                    using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv"))
+                    using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory")))
                     using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                     {
                         currentInventory = csv.GetRecords<Product>().ToList();
@@ -174,7 +174,7 @@ namespace FinalProject
                     }
 
                     // write filtered inventory to csv file
-                    using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv"))
+                    using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory")))
                     using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                     {
                         csv.WriteHeader<Product>();
@@ -189,7 +189,7 @@ namespace FinalProject
             }
 
             // write filtered records to csv file
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv"))
+            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Sales")))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteHeader<SalesOrder>();

@@ -18,14 +18,14 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
             }
 
             //open inventory csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Product>().ToList(); // convert to list
@@ -77,7 +77,7 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
@@ -93,7 +93,7 @@ namespace FinalProject
             }
 
             // write new Options to Options.csv
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Options.csv"))
+            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory")))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(new List<Options> { new Options { UserMinInventory = minInventory, UserMaxInventory = MaxInventory, UserMarketingBudget = MarketingCheck.MarketingBudget, MarketingTotalCost = MarketingCheck.TotalCost  } });
@@ -113,7 +113,7 @@ namespace FinalProject
             Console.ReadKey();
 
             // write new Options to Options.csv
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Options.csv"))
+            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory")))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(new List<Options> { new Options { UserMinInventory = MinInventory, UserMaxInventory = maxInventory, UserMarketingBudget = MarketingCheck.MarketingBudget, MarketingTotalCost = MarketingCheck.TotalCost } });
@@ -130,14 +130,14 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
             }
 
             //open inventory csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Expenses.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Expenses")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Expense>().ToList(); // convert to list
@@ -175,14 +175,14 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
             }
 
             //open sales csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Sales.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Sales")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<SalesOrder>().ToList(); // convert to list
@@ -223,14 +223,14 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
             }
 
             //open sales csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Orders.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Orders")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Order>().ToList(); // convert to list
@@ -275,7 +275,7 @@ namespace FinalProject
             List<Notification> existingNotifications; // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
@@ -305,7 +305,7 @@ namespace FinalProject
             Console.WriteLine("Marketing budget set to: $" + newBudget);
 
             // write new Options to Options.csv
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Options.csv"))
+            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Marketing")))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(new List<Options> { new Options { UserMinInventory = InventoryCheck.MinInventory, UserMaxInventory = InventoryCheck.MaxInventory, UserMarketingBudget = newBudget, MarketingTotalCost = TotalCost } });
@@ -319,14 +319,14 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
             }
 
             //open Marketing csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Marketing.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Marketing")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<MarketingCampaign>().ToList(); // convert to list
@@ -387,7 +387,7 @@ namespace FinalProject
         {
             // open options CSV file and get values for MinInventory, MaxInventory, MarketingBudget, and TotalCost (marketing)
             // set each value to the corresponding variable upon loading the program
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Options.csv"))
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Options")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Options>().ToList(); // convert to list
@@ -399,6 +399,30 @@ namespace FinalProject
                     MarketingCheck.MarketingBudget = record.UserMarketingBudget;
                     MarketingCheck.TotalCost = record.MarketingTotalCost;
                 }
+            }
+        }
+    }
+
+    public static class FileManager
+    {
+        public static string GetCurrentDatabaseFile(string tableName)
+        {
+            return DateTime.Now.ToString("yyyy_MM_") + tableName + ".csv";
+        }
+
+        public static string GetFilePathForTable(string tableName)
+        {
+            string currentDatabase = GetCurrentDatabaseFile(tableName);
+            string path = Path.Combine("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\",currentDatabase);
+            return path;
+        }
+
+        public static void CreateDatabaseFiles(string tableName)
+        {
+            string path = GetFilePathForTable(tableName);
+            if (!File.Exists(path))
+            {
+                File.Create(path).Close();
             }
         }
     }

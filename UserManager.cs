@@ -20,7 +20,7 @@ namespace FinalProject
 
         public void Login()
         {
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Users"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<User>().ToList(); // convert to list
@@ -112,7 +112,7 @@ namespace FinalProject
             // get last userId from csv file
             int lastId = 0;
 
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Users"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<User>().ToList(); // convert to list
@@ -137,10 +137,10 @@ namespace FinalProject
             };
 
             // add to CSV file
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv", append: true)) // open file
+            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Users"), append: true)) // open file
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // read file
             {
-                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv").Length == 0)
+                if (new FileInfo(FileManager.GetFilePathForTable("Users")).Length == 0)
                 {
                     csv.WriteHeader<User>();
                     csv.NextRecord(); // Move to the next line after writing the header
@@ -156,7 +156,7 @@ namespace FinalProject
         public void ShowUsers()
         {
             // show all users in CSV file, only show username, id, and AdminLevel
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Users"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<User>().ToList(); // convert to list
@@ -187,7 +187,7 @@ namespace FinalProject
             List<User> records;
 
             // check if user exists
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Users"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 records = csv.GetRecords<User>().ToList(); // convert to list
@@ -214,7 +214,7 @@ namespace FinalProject
                 records.Remove(userToDelete);
 
                 // write list to CSV file
-                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Users.csv")) // open file
+                using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Users"))) // open file
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
                 {
                     csv.WriteRecords(records);

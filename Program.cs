@@ -1,6 +1,6 @@
 ﻿namespace FinalProject
 {
-    internal partial class Program
+    internal class Program
     {
         enum MenuActionResult
         {
@@ -8,6 +8,7 @@
             Logout,
             Exit,
         } 
+
         public static void MenuHeader() // static header for the menu that will display the current users name and admin level followed by the date and time, then a line break
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -18,6 +19,7 @@
             Console.WriteLine("--------------------------------------------------");
             
         }
+
         private static void DisplayMenu()
         {
             // Print header
@@ -43,12 +45,14 @@
                 Console.WriteLine("[5.]  User Manager"); // only admins can use the user manager
                 Console.WriteLine("[6.]  Expense Manager"); // only admins can use the expense manager
                 Console.WriteLine("[7.]  Marketing Manager"); // only admins can use the marketing manager
+                Console.WriteLine("[8.]  Analytics Dashboard"); // only admins can use the analytics manager
             }
-            Console.WriteLine("[8.]  Logout"); // all users can logout
-            Console.WriteLine("[9.]  Exit Program"); // all users can exit the program
+            Console.WriteLine("[9.]  Logout"); // all users can logout
+            Console.WriteLine("[0.]  Exit Program"); // all users can exit the program
             Console.WriteLine("--------------------------------------------------");
             Console.Write("Enter choice: ");
         } // display the menu options
+
         private static MenuActionResult HandleChoices(int userChoice, InventoryManager inventoryManager, SalesManager salesManager, SupplierManager supplierManager, UserManager userManager, ExpenseManger expenseManger, MarketingManager marketingManager, NotificationManager notificationManager)
         {
             // Create switch statement
@@ -147,13 +151,29 @@
                     }
                     return MenuActionResult.Continue;
                 case 8:
+                    // Go to Analytics Dashboard
+                    if (GlobalState.CurrentUser?.adminLevel != User.AdminLevel.Admin)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You do not have access to this module.");
+                        Console.WriteLine("Press any key to return to main menu.");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Analytics.AnalyticsMenu();
+                    }
+                    return MenuActionResult.Continue;
+                case 9:
                     // Logout
                     Console.Clear();
                     Console.WriteLine("Logging you out...");
                     Console.ReadLine();
                     GlobalState.Logout();
                     return MenuActionResult.Logout;
-                case 9:
+                case 0:
                     // Exit program
                     Console.Clear();
                     Console.WriteLine("Exiting program...");
@@ -168,11 +188,12 @@
                     return MenuActionResult.Continue;
             }
         }
+
         static void Main()
         {
             // set console window size 
             Console.SetWindowSize(200, 60);
-            
+
             // Instantiate Manager Objects
             SalesManager salesManager = new();
             ExpenseManger expenseManger = new();
@@ -181,16 +202,16 @@
             MarketingManager marketingManager = new();
             UserManager userManager = new();
             NotificationManager notificationManager = new();
-            Options options = new();
+
 
             // do database check when program starts
+            OptionsCheck.LoadUserOptions();
             InventoryCheck.CheckInventory();
             ExpenseCheck.CheckExpense();
             SalesCheck.CheckSales();
             OrderCheck.CheckOrders();
             MarketingCheck.CheckMarketing();
-            OptionsCheck.LoadUserOptions();
-
+           
             do
             { 
                 // Allow the user to Login

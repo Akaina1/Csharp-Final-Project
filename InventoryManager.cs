@@ -7,7 +7,7 @@ namespace FinalProject
     {
         public void ShowInventory() // read from csv file
         {
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<Product>().ToList(); // convert to list
@@ -59,7 +59,7 @@ namespace FinalProject
             };
 
             // check if item already exists in inventory by comparing item id to existing item ids
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory"))) // open file
 
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
@@ -76,10 +76,10 @@ namespace FinalProject
             }
 
             // add product to inventory
-            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv", append: true)) // open file
+            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory"), append: true)) // open file
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
             {
-                if (new FileInfo("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv").Length == 0)
+                if (new FileInfo(FileManager.GetFilePathForTable("Inventory")).Length == 0)
                 {
                     csv.WriteHeader<Product>();
                     csv.NextRecord(); // Move to the next line after writing the header
@@ -103,7 +103,7 @@ namespace FinalProject
             List<Product> records;
 
             // check if item exists in inventory by comparing item id to existing item ids
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv")) // open file
+            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory"))) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 records = csv.GetRecords<Product>().ToList(); // convert to list
@@ -117,7 +117,7 @@ namespace FinalProject
                 records.Remove(itemToDelete);
 
                 // write updated inventory to csv file
-                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Inventory.csv", append: false)) // open file
+                using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory"), append: false)) // open file
                 using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
                 {
                     csvWriter.WriteHeader<Product>();
@@ -234,6 +234,7 @@ namespace FinalProject
                     break;
             }
         }
+
         public void InventoryOptions()
         {
             Program.MenuHeader();
@@ -280,6 +281,5 @@ namespace FinalProject
                     break;
             }
         }
-
     }
 }
