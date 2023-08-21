@@ -181,6 +181,7 @@
             MarketingManager marketingManager = new();
             UserManager userManager = new();
             NotificationManager notificationManager = new();
+            Options options = new();
 
             // do database check when program starts
             InventoryCheck.CheckInventory();
@@ -188,6 +189,7 @@
             SalesCheck.CheckSales();
             OrderCheck.CheckOrders();
             MarketingCheck.CheckMarketing();
+            OptionsCheck.LoadUserOptions();
 
             do
             { 

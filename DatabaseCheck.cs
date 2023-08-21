@@ -7,8 +7,10 @@ namespace FinalProject
 {
     public static class InventoryCheck
     {
-        public static int MinInventory { get; set; } = 10; // minumum inventory level with default value of 10
-        public static int MaxInventory { get; set; } = 100; // maximum inventory level with default value of 100
+        public static int MinInventory { get; set; }
+
+        public static int MaxInventory { get; set; }
+
         public static void CheckInventory()
         {
             // check notifications.csv file for any notifications that have already been created
@@ -60,6 +62,7 @@ namespace FinalProject
                 }
             }
         }
+
         public static void SetMinInventory()
         {
             Console.WriteLine("Enter minimum inventory level: ");
@@ -69,7 +72,34 @@ namespace FinalProject
             MinInventory = minInventory;
 
             Console.WriteLine("Minimum inventory level set to: " + minInventory);
+
+            // delete all Low Inventory notifications
+            List<Notification> existingNotifications = new(); // create list of notifications
+
+            // open notifications csv file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Notifications.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                existingNotifications = csv.GetRecords<Notification>().ToList();
+            }
+
+            // delete all Low Inventory notifications
+            foreach (var notification in existingNotifications)
+            {
+                if (notification.Description.Contains("Low Inventory"))
+                {
+                    NotificationManager.DeleteNotification(notification.Id);
+                }
+            }
+
+            // write new Options to Options.csv
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Options.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(new List<Options> { new Options { UserMinInventory = minInventory, UserMaxInventory = MaxInventory, UserMarketingBudget = MarketingCheck.MarketingBudget, MarketingTotalCost = MarketingCheck.TotalCost  } });
+            }
         }
+
         public static void SetMaxInventory()
         {
             Console.WriteLine("Enter maximum inventory level: ");
@@ -81,6 +111,13 @@ namespace FinalProject
             Console.WriteLine("Maximum inventory level set to: " + maxInventory);
             Console.WriteLine("Press any key to return to the Notification Manager Menu.");
             Console.ReadKey();
+
+            // write new Options to Options.csv
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Options.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(new List<Options> { new Options { UserMinInventory = MinInventory, UserMaxInventory = maxInventory, UserMarketingBudget = MarketingCheck.MarketingBudget, MarketingTotalCost = MarketingCheck.TotalCost } });
+            }
         }
     }
 
@@ -178,14 +215,6 @@ namespace FinalProject
         }
     }
 
-    public static class UsersCheck
-    {
-        public static void CheckUsers()
-        {
-
-        }
-    }
-
     public static class OrderCheck
     {
         public static void CheckOrders()
@@ -233,8 +262,10 @@ namespace FinalProject
 
     public static class MarketingCheck
     {
-        public static double MarketingBudget {get; set;} = 200;
-        public static double totalCost { get; set;} = 0;
+        public static double MarketingBudget {get; set;}
+
+        public static double TotalCost { get; set;}
+
         public static void SetMarketingBudget()
         {
             Console.WriteLine("Enter Marketing Budget ($): ");
@@ -253,16 +284,16 @@ namespace FinalProject
             // get only Marketing notifications
             existingNotifications = existingNotifications.Where(n => n.notificationModule == Notification.Module.Marketing).ToList();
 
-            // check if new budget makes notifications invalid
+            // delete marketing notifications
             foreach (var notification in existingNotifications)
             {
-                if (notification.Description == $"Using 80%+ of Marketing Budget: ${totalCost} / ${MarketingBudget}")
+                if (notification.Description == $"Using 80%+ of Marketing Budget: ${TotalCost} / ${MarketingBudget}")
                 {
                     // delete notification
                     NotificationManager.DeleteNotification(notification.Id);
                 }
 
-                if (notification.Description == $"Over Marketing Budget: {totalCost} / {MarketingBudget}")
+                if (notification.Description == $"Over Marketing Budget: {TotalCost} / {MarketingBudget}")
                 {
                     // delete notification
                     NotificationManager.DeleteNotification(notification.Id);
@@ -272,7 +303,15 @@ namespace FinalProject
             // set InventoryCheck.minInventory to user input
             MarketingBudget = newBudget;
             Console.WriteLine("Marketing budget set to: $" + newBudget);
+
+            // write new Options to Options.csv
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Options.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(new List<Options> { new Options { UserMinInventory = InventoryCheck.MinInventory, UserMaxInventory = InventoryCheck.MaxInventory, UserMarketingBudget = newBudget, MarketingTotalCost = TotalCost } });
+            }
         }
+
         public static void CheckMarketing()
         {
             // check notifications.csv file for any notifications that have already been created
@@ -314,29 +353,51 @@ namespace FinalProject
                     }
                 }
 
-                totalCost = 0; // reset totalCost
+                TotalCost = 0; // reset totalCost
                 foreach (var campaign in records)
                 {
-                    totalCost += campaign.Cost;
+                    TotalCost += campaign.Cost;
                 }
                               
                 // check if marketing campaign is close to budget, add Cost of every campaign in the Marketing.csv file
-                if (totalCost >= MarketingBudget) // if over budget
+                if (TotalCost >= MarketingBudget) // if over budget
                 {
-                    if (!existingNotifications.Any(n => n.Description == $"Over Marketing Budget: {totalCost} / {MarketingBudget}"))
+                    if (!existingNotifications.Any(n => n.Description == $"Over Marketing Budget: {TotalCost} / {MarketingBudget}"))
                     {
                         // create notification
-                        NotificationManager.AutoNotification($"Over Marketing Budget: {totalCost} / {MarketingBudget}", Notification.NotificationType.Urgent, Notification.Module.Marketing);
+                        NotificationManager.AutoNotification($"Over Marketing Budget: {TotalCost} / {MarketingBudget}", Notification.NotificationType.Urgent, Notification.Module.Marketing);
                     }
                 }
 
-                if (totalCost >= (MarketingBudget * 0.80)) // marketing campaign is within 20% of budget
+                if (TotalCost >= (MarketingBudget * 0.80)) // marketing campaign is within 20% of budget
                 {
-                    if (!existingNotifications.Any(n => n.Description == $"Using 80%+ of Marketing Budget: ${totalCost} / ${MarketingBudget}"))
+                    if (!existingNotifications.Any(n => n.Description == $"Using 80%+ of Marketing Budget: ${TotalCost} / ${MarketingBudget}"))
                     {
                         // create notification
-                        NotificationManager.AutoNotification($"Using 80%+ of Marketing Budget: ${totalCost} / ${MarketingBudget}", Notification.NotificationType.Warning, Notification.Module.Marketing);
+                        NotificationManager.AutoNotification($"Using 80%+ of Marketing Budget: ${TotalCost} / ${MarketingBudget}", Notification.NotificationType.Warning, Notification.Module.Marketing);
                     }
+                }
+            }
+        }
+    }
+
+    public static class OptionsCheck
+    {
+        public static void LoadUserOptions()
+        {
+            // open options CSV file and get values for MinInventory, MaxInventory, MarketingBudget, and TotalCost (marketing)
+            // set each value to the corresponding variable upon loading the program
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Database\\Options.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Options>().ToList(); // convert to list
+
+                foreach (var record in records)
+                {
+                    InventoryCheck.MinInventory = record.UserMinInventory;
+                    InventoryCheck.MaxInventory = record.UserMaxInventory;
+                    MarketingCheck.MarketingBudget = record.UserMarketingBudget;
+                    MarketingCheck.TotalCost = record.MarketingTotalCost;
                 }
             }
         }

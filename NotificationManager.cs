@@ -80,7 +80,7 @@ namespace FinalProject
             Console.WriteLine("Notification Manager\n");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("[1.]  Show all Notifications");
-            Console.WriteLine("[2.]  Notification Options");
+            Console.WriteLine("[2.]  PLACEHOLDER");
             Console.WriteLine("[3.]  Return to Main Menu");
             Console.WriteLine("--------------------------------------------------");
 
@@ -99,57 +99,11 @@ namespace FinalProject
                     break;
                 case 2:
                     Console.Clear();
-                    OptionsMenu();
+                    //OptionsMenu();
                     break;
                 case 3:
                     Console.Clear();
                     break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Invalid choice.");
-                    Console.WriteLine("Press any key to return to Notification Manager Menu.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    NotificationMenu();
-                    break;
-            }
-        }
-        public void OptionsMenu()
-        {
-            Program.MenuHeader();
-            NotificationHeader();
-            Console.WriteLine("Notification Options\n");
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("[1.]  Change minumum inventory limit");
-            Console.WriteLine("[2.]  Change maximum inventory limit");
-            Console.WriteLine("[3.]  Return to Notification Manager");
-            Console.WriteLine("--------------------------------------------------");
-
-            Console.Write("Enter choice: ");
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    Console.Clear();
-                    InventoryCheck.SetMinInventory();
-                    Console.WriteLine("Press any key to return to the Notification Manager Menu.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    NotificationMenu();
-                    break;
-                case 2:
-                    Console.Clear();
-                    InventoryCheck.SetMaxInventory();
-                    Console.WriteLine("Press any key to return to the Notification Manager Menu.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    NotificationMenu();
-                    break;
-                case 3:
-                    Console.Clear();
-                    NotificationMenu();
-                    break;                  
                 default:
                     Console.Clear();
                     Console.WriteLine("Invalid choice.");

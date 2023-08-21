@@ -152,7 +152,8 @@ namespace FinalProject
             Console.WriteLine("[1.]  Show Inventory");
             Console.WriteLine("[2.]  Add Inventory Item");
             Console.WriteLine("[3.]  Delete Inventory Item");
-            Console.WriteLine("[4.]  Return to Main Menu");
+            Console.WriteLine("[4.]  Inventory Options");
+            Console.WriteLine("[5.]  Return to Main Menu");
             Console.WriteLine("--------------------------------------------------");
 
             Console.Write("Enter choice: ");
@@ -204,6 +205,23 @@ namespace FinalProject
                     }
                     break;
                 case 4:
+                    if (GlobalState.CurrentUser.adminLevel != User.AdminLevel.Admin)
+                    {
+                        Console.WriteLine("You do not have permission to delete inventory items.");
+                        Console.WriteLine("Press any key to return to the Inventory Manager Menu.");
+                        Console.ReadKey();
+                        Console.Clear();
+                        InventoryMenu();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        InventoryOptions();
+                        Console.Clear();
+                        InventoryMenu();
+                    }
+                    break;
+                case 5:
                     Console.Clear();
                     break;
                 default:
@@ -216,5 +234,52 @@ namespace FinalProject
                     break;
             }
         }
+        public void InventoryOptions()
+        {
+            Program.MenuHeader();
+            NotificationManager.NotificationHeader();
+            Console.WriteLine("Inventory Options\n");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("[1.]  Change minumum inventory limit");
+            Console.WriteLine("[2.]  Change maximum inventory limit");
+            Console.WriteLine("[3.]  Return to Inventory Manager");
+            Console.WriteLine("--------------------------------------------------");
+
+            Console.Write("Enter choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Console.Clear();
+                    InventoryCheck.SetMinInventory();
+                    Console.WriteLine("Press any key to return to the Inventory Manager Menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    InventoryMenu();
+                    break;
+                case 2:
+                    Console.Clear();
+                    InventoryCheck.SetMaxInventory();
+                    Console.WriteLine("Press any key to return to the Inventory Manager Menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    InventoryMenu();
+                    break;
+                case 3:
+                    Console.Clear();
+                    InventoryMenu();
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Invalid choice.");
+                    Console.WriteLine("Press any key to return to Inventory Manager Menu.");
+                    Console.ReadLine();
+                    Console.Clear();
+                    InventoryMenu();
+                    break;
+            }
+        }
+
     }
 }
