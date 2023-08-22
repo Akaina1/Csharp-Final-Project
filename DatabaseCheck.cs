@@ -19,7 +19,7 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv"))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
@@ -131,7 +131,7 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
@@ -176,7 +176,7 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
@@ -224,7 +224,7 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
@@ -276,7 +276,7 @@ namespace FinalProject
             List<Notification> existingNotifications; // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
@@ -320,7 +320,7 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();

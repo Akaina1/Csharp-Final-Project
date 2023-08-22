@@ -83,7 +83,7 @@ namespace FinalProject
                 // decrement the InStock value for the product by comparing productName to ProductName in Inventory.csv
                 List<Product> currentInventory;
 
-                using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv")
+                using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv"))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     currentInventory = csv.GetRecords<Product>().ToList();
