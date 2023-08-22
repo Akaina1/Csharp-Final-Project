@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using CsvHelper.Configuration;
 using System.Globalization;
 
 
@@ -18,14 +19,14 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
             }
 
             //open inventory csv file
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Product>().ToList(); // convert to list
@@ -77,7 +78,7 @@ namespace FinalProject
             List<Notification> existingNotifications = new(); // create list of notifications
 
             // open notifications csv file
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 existingNotifications = csv.GetRecords<Notification>().ToList();
@@ -93,7 +94,7 @@ namespace FinalProject
             }
 
             // write new Options to Options.csv
-            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory")))
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Options.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(new List<Options> { new Options { UserMinInventory = minInventory, UserMaxInventory = MaxInventory, UserMarketingBudget = MarketingCheck.MarketingBudget, MarketingTotalCost = MarketingCheck.TotalCost  } });
@@ -113,7 +114,7 @@ namespace FinalProject
             Console.ReadKey();
 
             // write new Options to Options.csv
-            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory")))
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Options.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(new List<Options> { new Options { UserMinInventory = MinInventory, UserMaxInventory = maxInventory, UserMarketingBudget = MarketingCheck.MarketingBudget, MarketingTotalCost = MarketingCheck.TotalCost } });
@@ -300,12 +301,12 @@ namespace FinalProject
                 }
             } 
             
-            // set InventoryCheck.minInventory to user input
+            // set MarketingBudget to user input
             MarketingBudget = newBudget;
             Console.WriteLine("Marketing budget set to: $" + newBudget);
 
             // write new Options to Options.csv
-            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Marketing")))
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Options.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(new List<Options> { new Options { UserMinInventory = InventoryCheck.MinInventory, UserMaxInventory = InventoryCheck.MaxInventory, UserMarketingBudget = newBudget, MarketingTotalCost = TotalCost } });
@@ -387,7 +388,7 @@ namespace FinalProject
         {
             // open options CSV file and get values for MinInventory, MaxInventory, MarketingBudget, and TotalCost (marketing)
             // set each value to the corresponding variable upon loading the program
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Options")))
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Options.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Options>().ToList(); // convert to list
@@ -450,53 +451,168 @@ namespace FinalProject
                 DateTime nextMonth = currentMonth.AddMonths(1);
                 string nextMonthPrefix = nextMonth.ToString("yyyy_MM_");
 
-                // get all files in current database folder
-                string[] currentDatabaseFiles = Directory.GetFiles(currentDatabasePath);
+                CopyExpensesForNextMonth(currentDatabasePath, archiveDatabasePath, nextMonthPrefix);    
+                CopyMarketingForNextMonth(currentDatabasePath, archiveDatabasePath, nextMonthPrefix);
+                CopyOrdersForNextMonth(currentDatabasePath, archiveDatabasePath, nextMonthPrefix);
+                CopySalesForNextMonth(currentDatabasePath, archiveDatabasePath, nextMonthPrefix);
 
-                // loop through each file in current database folder
-                foreach (string file in currentDatabaseFiles)
-                {
-                    string fileName = Path.GetFileName(file);
-                    string destinationPath = Path.Combine(archiveDatabasePath, fileName);
+                //// get all files in current database folder
+                //string[] currentDatabaseFiles = Directory.GetFiles(currentDatabasePath);
 
-                    // First handle copying for special files
-                    if (fileName.EndsWith("Users.csv", StringComparison.OrdinalIgnoreCase))
-                    {
-                        string newPath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Users.csv");
-                        File.Copy(file, newPath);
-                        File.Move(file, destinationPath);
-                    }
-                    else if (fileName.EndsWith("Options.csv", StringComparison.OrdinalIgnoreCase))
-                    {
-                        string newPath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Options.csv");
-                        File.Copy(file, newPath);
-                        File.Move(file, destinationPath);
-                    }
-                    else
-                    {
-                        // move all qualifying files to the archive
-                        File.Move(file, destinationPath);
-                    }
-                } 
+                //// loop through each file in current database folder
+                //foreach (string file in currentDatabaseFiles)
+                //{
+                //    string fileName = Path.GetFileName(file);
+                //    string destinationPath = Path.Combine(archiveDatabasePath, fileName);
 
-            // create new database files for each table
-            ResetDatabase();
+                //    if (fileName.EndsWith("Expenses.csv", StringComparison.OrdinalIgnoreCase)) { }
+                //    if (fileName.EndsWith("Marketing.csv", StringComparison.OrdinalIgnoreCase)) { }
+                //    if (fileName.EndsWith("Orders.csv", StringComparison.OrdinalIgnoreCase)) { }
+                //    if (fileName.EndsWith("Sales.csv", StringComparison.OrdinalIgnoreCase)) { }
+                //    //// First handle copying for special files
+                //    //if (fileName.EndsWith("Users.csv", StringComparison.OrdinalIgnoreCase))
+                //    //{
+                //    //    string newPath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Users.csv");
+                //    //    File.Copy(file, newPath);
+                //    //    File.Move(file, destinationPath);
+                //    //}
+                //    //else if (fileName.EndsWith("Options.csv", StringComparison.OrdinalIgnoreCase))
+                //    //{
+                //    //    string newPath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Options.csv");
+                //    //    File.Copy(file, newPath);
+                //    //    File.Move(file, destinationPath);
+                //    //}
+                //    //else
+                //    //{
+                //    //    // move all qualifying files to the archive
+                //    //    File.Move(file, destinationPath);
+                //    //}
+                //}
 
-            Console.WriteLine("Finished archiving last month's CSV files.");
-            Console.ReadKey();
+                Console.WriteLine("Finished archiving last month's CSV files.");
+                Console.ReadKey();
             
             }
         }
 
-        public static void ResetDatabase()
+        public static void CopyExpensesForNextMonth(string currentDatabasePath, string archiveDatabasePath, string nextMonthPrefix)
         {
-            // create new database files for each table
-            CreateDatabaseFiles("Inventory");
-            CreateDatabaseFiles("Marketing");
-            CreateDatabaseFiles("Notifications");
-            CreateDatabaseFiles("Sales");
-            CreateDatabaseFiles("Orders");
-            CreateDatabaseFiles("Expenses");    
+            // Define file paths
+            string currentFilePath = Path.Combine(currentDatabasePath, DateTime.Now.ToString("yyyy_MM") + "_Expenses.csv");
+            string nextMonthFilePath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Expenses.csv");
+            string archiveFilePath = Path.Combine(archiveDatabasePath, DateTime.Now.ToString("yyyy_MM") + "_Expenses.csv");
+
+            // Read current month's data
+            List<Expense> records;
+            using (var reader = new StreamReader(currentFilePath))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                records = csv.GetRecords<Expense>().ToList();
+            }
+
+            // Filter records for the next month
+            var nextMonth = DateTime.Now.AddMonths(1);
+            var recordsForNextMonth = records.Where(r => r.DueDate.Month == nextMonth.Month && r.DueDate.Year == nextMonth.Year).ToList();
+
+            // Write filtered records to next month's file
+            using (var writer = new StreamWriter(nextMonthFilePath))
+            using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                csv.WriteRecords(recordsForNextMonth);
+            }
+
+            // Move current month's file to archive
+            File.Move(currentFilePath, archiveFilePath);
+        }
+
+        public static void CopyMarketingForNextMonth(string currentDatabasePath, string archiveDatabasePath, string nextMonthPrefix)
+        {
+            // Define file paths
+            string currentFilePath = Path.Combine(currentDatabasePath, DateTime.Now.ToString("yyyy_MM") + "_Marketing.csv");
+            string nextMonthFilePath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Marketing.csv");
+            string archiveFilePath = Path.Combine(archiveDatabasePath, DateTime.Now.ToString("yyyy_MM") + "_Marketing.csv");
+
+            // Read current month's data
+            List<MarketingCampaign> records;
+            using (var reader = new StreamReader(currentFilePath))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                records = csv.GetRecords<MarketingCampaign>().ToList();
+            }
+
+            // Filter records for the next month
+            var nextMonth = DateTime.Now.AddMonths(1);
+            var recordsForNextMonth = records.Where(r => r.EndDate.Month == nextMonth.Month && r.EndDate.Year == nextMonth.Year).ToList();
+
+            // Write filtered records to next month's file
+            using (var writer = new StreamWriter(nextMonthFilePath))
+            using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                csv.WriteRecords(recordsForNextMonth);
+            }
+
+            // Move current month's file to archive
+            File.Move(currentFilePath, archiveFilePath);
+        }
+
+        public static void CopyOrdersForNextMonth(string currentDatabasePath, string archiveDatabasePath, string nextMonthPrefix)
+        {
+            // Define file paths
+            string currentFilePath = Path.Combine(currentDatabasePath, DateTime.Now.ToString("yyyy_MM") + "_Orders.csv");
+            string nextMonthFilePath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Orders.csv");
+            string archiveFilePath = Path.Combine(archiveDatabasePath, DateTime.Now.ToString("yyyy_MM") + "_Orders.csv");
+
+            // Read current month's data
+            List<Order> records;
+            using (var reader = new StreamReader(currentFilePath))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                records = csv.GetRecords<Order>().ToList();
+            }
+
+            // Filter records for the next month
+            var nextMonth = DateTime.Now.AddMonths(1);
+            var recordsForNextMonth = records.Where(r => r.OrderStatus != Order.Status.Delivered).ToList();
+
+            // Write filtered records to next month's file
+            using (var writer = new StreamWriter(nextMonthFilePath))
+            using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                csv.WriteRecords(recordsForNextMonth);
+            }
+
+            // Move current month's file to archive
+            File.Move(currentFilePath, archiveFilePath);
+        }
+
+        public static void CopySalesForNextMonth(string currentDatabasePath, string archiveDatabasePath, string nextMonthPrefix)
+        {
+            // Define file paths
+            string currentFilePath = Path.Combine(currentDatabasePath, DateTime.Now.ToString("yyyy_MM") + "_Sales.csv");
+            string nextMonthFilePath = Path.Combine(currentDatabasePath, nextMonthPrefix + "Sales.csv");
+            string archiveFilePath = Path.Combine(archiveDatabasePath, DateTime.Now.ToString("yyyy_MM") + "_Sales.csv");
+
+            // Read current month's data
+            List<SalesOrder> records;
+            using (var reader = new StreamReader(currentFilePath))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                records = csv.GetRecords<SalesOrder>().ToList();
+            }
+
+            // Filter records for the next month
+            var nextMonth = DateTime.Now.AddMonths(1);
+            var recordsForNextMonth = records.Where(r => r.OrderStatus != SalesOrder.Status.Delivered).ToList();
+
+            // Write filtered records to next month's file
+            using (var writer = new StreamWriter(nextMonthFilePath))
+            using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                csv.WriteRecords(recordsForNextMonth);
+            }
+
+            // Move current month's file to archive
+            File.Move(currentFilePath, archiveFilePath);
         }
     }
 }

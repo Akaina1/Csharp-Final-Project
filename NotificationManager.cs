@@ -10,7 +10,7 @@ namespace FinalProject
             Console.WriteLine("Urgent Notifications: \n");
 
             // only first 3 Urgent notifications will be displayed
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications"))) // open file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv")) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<Notification>().ToList(); // convert to list
@@ -40,7 +40,7 @@ namespace FinalProject
 
         public void ShowNotifications()
         {
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications"))) // open file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv")) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<Notification>().ToList(); // convert to list
@@ -122,7 +122,7 @@ namespace FinalProject
             // get id of last notification in csv file
             int lastId = 0;
 
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications"))) // open file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv")) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 var records = csv.GetRecords<Notification>().ToList(); // convert to list
@@ -146,7 +146,7 @@ namespace FinalProject
             };
 
             // add notification to csv file
-            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Notifications"), append: true))
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv", append: true))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 if (new FileInfo(FileManager.GetFilePathForTable("Notifications")).Length == 0)
@@ -166,13 +166,13 @@ namespace FinalProject
             // delete notififcation with matching id
             var records = new List<Notification>();
 
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications"))) // open file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv")) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 records = csv.GetRecords<Notification>().ToList(); // convert to list
             }
 
-            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Notifications")))
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteHeader<Notification>();

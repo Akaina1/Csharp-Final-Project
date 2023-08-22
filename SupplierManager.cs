@@ -92,7 +92,7 @@ namespace FinalProject
             // check if there is a low stock notification for this product by seeing if productName exists in the Notification description string
             // only Notifications within the Inventory Module are checked {Notification.Module.Inventory}
             List<Notification> notifRecords;
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Notifications"))) // open file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Notifications.csv")) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 notifRecords = csv.GetRecords<Notification>().ToList(); // convert to list
@@ -109,7 +109,7 @@ namespace FinalProject
 
             // add amount of units ordered to OnOrder field in Product.csv
             List<Product> productRecords;
-            using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory"))) // open file
+            using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv")) // open file
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
             {
                 productRecords = csv.GetRecords<Product>().ToList(); // convert to list
@@ -122,7 +122,7 @@ namespace FinalProject
             }
 
             // write updated product to csv file
-            using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory"))) // open file
+            using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv")) // open file
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
             {
                 csv.WriteRecords(productRecords);
@@ -175,7 +175,7 @@ namespace FinalProject
 
                 // subtract amount of units ordered from OnOrder field in Inventory.csv
                 List<Product> productRecords;
-                using (var reader = new StreamReader(FileManager.GetFilePathForTable("Inventory"))) // open file
+                using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv")) // open file
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) // read file
                 {
                     productRecords = csv.GetRecords<Product>().ToList(); // convert to list
@@ -188,7 +188,7 @@ namespace FinalProject
                     productToUpdate.OnOrder -= orderToDelete.Units;
                 }
 
-                using (var writer = new StreamWriter(FileManager.GetFilePathForTable("Inventory"))) // open file
+                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv")) // open file
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) // write to file
                 {
                     csv.WriteRecords(productRecords);
