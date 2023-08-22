@@ -679,7 +679,63 @@ namespace FinalProject
                 }
 
                 Console.WriteLine($"User {admin.Name} was created successfully");
+                Console.Clear();
             }            
         }
+
+        public static void SetupOptions()
+        {
+            bool optionsExists = true;
+            // check if Users.csv has no entries
+            using (var reader = new StreamReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Options.csv")))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                // read header
+                csv.Read();
+                csv.ReadHeader();
+
+                // if there are no entries, create a new user
+                if (!csv.Read())
+                {
+                    optionsExists = false;
+                }
+            }
+
+            if (!optionsExists)
+            {
+                Console.WriteLine("Let's setup up some default options: \n");
+                Console.WriteLine("Please enter a minimum inventory limit for products, once this is reached an Urgent notification will be generated: ");
+                int minInventory = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Please enter a maximum inventory limit for products, once this is reached an Warning notification will be generated: ");
+                int maxInventory = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Please enter a marketing budget, Notifications will be generated when you are close to budget or over budget: ");
+                int marketingBudget = Convert.ToInt32(Console.ReadLine());
+                
+                // Create a new Options object
+                Options userOptions = new()
+                {
+                    UserMinInventory = minInventory,
+                    UserMaxInventory = maxInventory,
+                    UserMarketingBudget = marketingBudget,
+                    MarketingTotalCost = 0
+                };
+
+                // Write the Options to csv file
+                using (var writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Options.csv"), true))
+                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    csv.NextRecord();
+                    csv.WriteRecord(userOptions);
+
+                    writer.Flush();
+                }
+
+                Console.WriteLine("User Options wwere created successfully");
+                Console.Clear();
+            }
+        }
+
     }
 }

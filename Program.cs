@@ -196,6 +196,7 @@
 
             FileManager.DirectoryInitilization();
             FileManager.SetupUser();
+            FileManager.SetupOptions();
             FileManager.ArchiveLastMonthCSVs();
 
             // Instantiate Manager Objects
