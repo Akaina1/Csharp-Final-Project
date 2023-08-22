@@ -195,6 +195,7 @@
             Console.SetWindowSize(200, 60);
 
             FileManager.DirectoryInitilization();
+            FileManager.SetupUser();
             FileManager.ArchiveLastMonthCSVs();
 
             // Instantiate Manager Objects

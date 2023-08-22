@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
+using static FinalProject.User;
 
 
 // the DatabaseCheck.cs is used to hold the Checker classes, they check each database CSV file to see if any conditions are met to create Notifications using AutoNotification() method.
@@ -630,6 +631,55 @@ namespace FinalProject
                     File.WriteAllText(filePath, csvEntry.Value); // Write the appropriate header
                 }
             }
+        }
+
+        public static void SetupUser()
+        {
+            bool userExists = true;
+            // check if Users.csv has no entries
+            using (var reader = new StreamReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Users.csv")))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                // read header
+                csv.Read();
+                csv.ReadHeader();
+
+                // if there are no entries, create a new user
+                if (!csv.Read())
+                {
+                    userExists = false;
+                }
+            }
+
+            if (!userExists)
+            {
+                Console.WriteLine("Welcome to the Inventory Management System");
+                Console.WriteLine("Please enter a username: ");
+                string username = Console.ReadLine();
+                Console.WriteLine("Please enter a password: ");
+                string password = Console.ReadLine();
+
+                // Create a new user
+                User admin = new()
+                {
+                    UserId = 1001,
+                    Name = username,
+                    Password = password,
+                    adminLevel = AdminLevel.Admin
+                };
+
+                // Write the user to the Users.csv file
+                using (var writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Users.csv"), true))
+                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    csv.NextRecord();
+                    csv.WriteRecord(admin);
+
+                    writer.Flush();
+                }
+
+                Console.WriteLine($"User {admin.Name} was created successfully");
+            }            
         }
     }
 }
