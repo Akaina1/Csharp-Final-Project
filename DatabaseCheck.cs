@@ -581,5 +581,55 @@ namespace FinalProject
             // Move current month's file to archive
             File.Move(currentFilePath, archiveFilePath);
         }
+        
+        public static void DirectoryInitilization()
+        {
+            string currentDatabasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database");
+            string archiveDatabasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Archived Databases");
+
+            Directory.CreateDirectory(currentDatabasePath);
+            Directory.CreateDirectory(archiveDatabasePath);
+
+            // Static CSV files and their headers
+            Dictionary<string, string> staticCsvFiles = new Dictionary<string, string>
+            {
+                {"Users.csv", "UserId,Name,Password,adminLevel"},
+                {"Notifications.csv", "Id,Description,Date,notificationType,notificationModule"},
+                {"Options.csv", "UserMinInventory,UserMaxInventory,UserMarketingBudget,MarketingTotalCost"},
+                {"Inventory.csv", "Id,Name,Price,Cost,InStock,SoldThisMonth,SoldLastMonth,OnOrder"}
+            };
+
+            // prefix for current month's files
+            string currentMonthPrefix = DateTime.Now.ToString("yyyy_MM_");
+
+            // Prefixed CSV files and their headers
+            Dictionary<string, string> prefixedCsvFiles = new Dictionary<string, string>
+            {
+                {"Expenses.csv", "Id,Description,Amount,DueDate"},
+                {"Marketing.csv", "Id,AdDetails,Cost,Views,Clicks,SalesFromAd,StartDate,EndDate"},
+                {"Orders.csv", "Id,SupplierName,ProductName,AmountPerUnit,Units,TotalCost,OrderStatus"},
+                {"Sales.csv", "OrderId,ProductName,SalePrice,OrderStatus"}
+            };
+
+            // check each static file in current database directory, create if not present
+            foreach (var csvEntry in staticCsvFiles)
+            {
+                string filePath = Path.Combine(currentDatabasePath, csvEntry.Key);
+                if (!File.Exists(filePath))
+                {
+                    File.WriteAllText(filePath, csvEntry.Value); // Write the appropriate header
+                }
+            }
+
+            // Check and possibly create each prefixed CSV file in the Current Database directory
+            foreach (var csvEntry in prefixedCsvFiles)
+            {
+                string filePath = Path.Combine(currentDatabasePath, currentMonthPrefix + csvEntry.Key);
+                if (!File.Exists(filePath))
+                {
+                    File.WriteAllText(filePath, csvEntry.Value); // Write the appropriate header
+                }
+            }
+        }
     }
 }

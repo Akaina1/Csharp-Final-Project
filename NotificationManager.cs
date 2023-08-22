@@ -149,7 +149,7 @@ namespace FinalProject
             using (var writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Notifications.csv"), append: true))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                if (new FileInfo(FileManager.GetFilePathForTable("Notifications")).Length == 0)
+                if (new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Notifications.csv")).Length == 0)
                 {
                     csv.WriteHeader<Notification>();
                     csv.NextRecord();// Move to the next line after writing the record

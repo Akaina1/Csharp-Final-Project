@@ -1,7 +1,5 @@
 ﻿namespace FinalProject
 {
-    // Tomorrow:
-    // Add Dynamic paths to files
     internal class Program
     {
         enum MenuActionResult
@@ -196,6 +194,7 @@
             // set console window size 
             Console.SetWindowSize(200, 60);
 
+            FileManager.DirectoryInitilization();
             FileManager.ArchiveLastMonthCSVs();
 
             // Instantiate Manager Objects
