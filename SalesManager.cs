@@ -83,7 +83,7 @@ namespace FinalProject
                 // decrement the InStock value for the product by comparing productName to ProductName in Inventory.csv
                 List<Product> currentInventory;
 
-                using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv"))
+                using (var reader = new StreamReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Inventory.csv")))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     currentInventory = csv.GetRecords<Product>().ToList();
@@ -103,7 +103,7 @@ namespace FinalProject
                 }
 
                 // write new inventory to csv file
-                using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv", append: true))
+                using (var writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Inventory.csv"), append: true))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
                     csv.WriteRecords(currentInventory);
@@ -160,7 +160,7 @@ namespace FinalProject
                 {
                     // if SalesOrder.OrderStatus == Cancelled, add stock back for each product in deleted order
                     List<Product> currentInventory;
-                    using (var reader = new StreamReader("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv"))
+                    using (var reader = new StreamReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Inventory.csv")))
                     using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                     {
                         currentInventory = csv.GetRecords<Product>().ToList();
@@ -174,7 +174,7 @@ namespace FinalProject
                     }
 
                     // write filtered inventory to csv file
-                    using (var writer = new StreamWriter("D:\\School\\School Work Code\\Udemy Code\\(3) C# Advanced Topics\\C# Final Project\\FinalProject\\Current Database\\Inventory.csv"))
+                    using (var writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Current Database", "Inventory.csv")))
                     using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                     {
                         csv.WriteHeader<Product>();

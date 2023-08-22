@@ -1,5 +1,7 @@
 ﻿namespace FinalProject
 {
+    // Tomorrow:
+    // Add Dynamic paths to files
     internal class Program
     {
         enum MenuActionResult

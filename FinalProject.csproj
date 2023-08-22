@@ -9,23 +9,15 @@
 
   <ItemGroup>
     <Compile Remove="Archived Databases - Copy\**" />
+    <Compile Remove="Archived Databases\**" />
     <EmbeddedResource Remove="Archived Databases - Copy\**" />
+    <EmbeddedResource Remove="Archived Databases\**" />
     <None Remove="Archived Databases - Copy\**" />
+    <None Remove="Archived Databases\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="30.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Archived Databases\2023_01_Database\" />
-    <Folder Include="Archived Databases\2023_02_Database\" />
-    <Folder Include="Archived Databases\2023_03_Database\" />
-    <Folder Include="Archived Databases\2023_04_Database\" />
-    <Folder Include="Archived Databases\2023_05_Database\" />
-    <Folder Include="Archived Databases\2023_06_Database\" />
-    <Folder Include="Archived Databases\2023_07_Database\" />
-    <Folder Include="Archived Databases\2023_08_Database\" />
   </ItemGroup>
 
 </Project>
