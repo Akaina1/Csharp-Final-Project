@@ -1,5 +1,9 @@
 # FinalProject
 
+Update August 25, 2023:
+The application is fully functional now. I will be pausing development here and moving on to learning Javascript (and other web dev tools)
+I will be refactoring these old projects to use a GUI in the future
+
 Some stipulations I had for the project:
 - Must be business related
 - Solve a real-world issue
