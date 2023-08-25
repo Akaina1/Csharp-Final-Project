@@ -57,7 +57,7 @@
         {
             // Create switch statement
             int menuChoice = userChoice;
-
+                      
             switch (menuChoice)
             {
                 case 1:
@@ -238,7 +238,19 @@
                         Console.Clear();
                         DisplayMenu(); // Display the menu options
 
-                        int userChoice = Convert.ToInt32(Console.ReadLine()); // Convert user input to int
+                        int userChoice; // Convert user input to int
+
+                        // do error checking on userChoice, if invalid ask user to re-enter
+                        while (!int.TryParse(Console.ReadLine(), out userChoice) || userChoice < 0 || userChoice > 9)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Invalid choice.");
+                            Console.WriteLine("Press any key to return to main menu.");
+                            Console.ReadLine();
+                            Console.Clear();
+                            DisplayMenu();     
+                        }
+                                                
                         result = HandleChoices(userChoice, inventoryManager, salesManager, supplierManager, userManager, expenseManger, marketingManager, notificationManager); // Handle the user choice
 
                         if (result == MenuActionResult.Exit)

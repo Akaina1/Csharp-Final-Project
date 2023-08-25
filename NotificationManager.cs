@@ -87,9 +87,20 @@ namespace FinalProject
             Console.WriteLine("--------------------------------------------------");
 
             Console.Write("Enter choice: ");
-            int choice = Convert.ToInt32(Console.ReadLine());
+            int Choice; // Convert user input to int
 
-            switch (choice)
+            // do error checking on userChoice, if invalid ask user to re-enter
+            while (!int.TryParse(Console.ReadLine(), out Choice) || Choice < 0 || Choice > 6)
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid choice.");
+                Console.WriteLine("Press any key to return to previous menu.");
+                Console.ReadLine();
+                Console.Clear();
+                NotificationMenu();
+            }
+
+            switch (Choice)
             {
                 case 1:
                     Console.Clear();
